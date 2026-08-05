@@ -1,622 +1,1087 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DsPrimis — Web Developer & WhatsApp Bot Builder</title>
-<meta name="description" content="DsPrimis (Fritz) — Haitian developer building WhatsApp bots and websites. Co-founder of Syrix. Creator of Squichy MD.">
-<style>
-:root{
-  --bg:#0a0a0f;
-  --bg-2:#0d0d13;
-  --panel:#131319;
-  --panel-2:#181820;
-  --line:#24242e;
-  --line-soft:#1a1a22;
-  --text:#f2f2f6;
-  --muted:#93939f;
-  --muted-2:#5c5c68;
-  --blue:#3854e0;
-  --blue-soft:#7f93f2;
-  --red:#e0263f;
-  --gold:#e0a83a;
-  --mono:ui-monospace,'JetBrains Mono','Fira Code','SFMono-Regular',Menlo,Consolas,monospace;
-  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  --maxw:1080px;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{
-  font-family:var(--sans);
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
-  overflow-x:hidden;
-}
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background:
-    radial-gradient(ellipse 900px 600px at 10% -10%, rgba(56,84,224,.15), transparent 60%),
-    radial-gradient(ellipse 700px 500px at 105% 15%, rgba(224,38,63,.10), transparent 55%);
-  pointer-events:none;
-  z-index:0;
-}
-a{color:inherit;text-decoration:none;}
-img{max-width:100%;display:block;}
-::selection{background:var(--blue);color:#fff;}
-svg{display:block;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DsPrimis · Developer & Builder</title>
+  <meta name="description" content="DsPrimis (Fritz) — Haitian developer building WhatsApp bots and websites. Co-founder of Syrix." />
+  <style>
+    /* ── Reset & base ── */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-@media (prefers-reduced-motion: reduce){
-  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
-}
+    :root {
+      --bg: #0b0b0f;
+      --bg-soft: #12121a;
+      --surface: #181822;
+      --border: #282836;
+      --border-light: #3a3a4a;
+      --text: #efeff4;
+      --muted: #9898aa;
+      --muted-2: #5e5e72;
+      --accent: #6c7cf0;
+      --accent-glow: rgba(108, 124, 240, 0.25);
+      --red: #e63a4a;
+      --gold: #e6b84a;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --max-w: 1100px;
+    }
 
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;position:relative;z-index:1;}
-section{padding:88px 0;border-top:1px solid var(--line-soft);}
-section:first-of-type{border-top:none;}
-.eyebrow{
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--blue-soft);margin-bottom:12px;display:flex;align-items:center;gap:8px;
-}
-.eyebrow::before{content:'';width:20px;height:1px;background:var(--blue-soft);}
-h2{font-size:clamp(1.6rem,3.4vw,2.2rem);letter-spacing:-.02em;margin-bottom:16px;}
-.lede{color:var(--muted);font-size:1rem;max-width:560px;margin-bottom:44px;}
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* ── NAV ── */
-.topbar{
-  position:sticky;top:0;z-index:50;
-  background:rgba(10,10,15,.75);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line-soft);
-}
-.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;padding-top:0;padding-bottom:0;}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;}
-.brand-mark{
-  width:30px;height:30px;border-radius:9px;flex-shrink:0;
-  background:linear-gradient(135deg,var(--blue),var(--red));
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:.72rem;font-weight:700;color:#fff;
-}
-.navlinks{display:flex;align-items:center;gap:28px;font-size:.85rem;color:var(--muted);}
-.navlinks a{transition:color .15s;}
-.navlinks a:hover{color:var(--text);}
-.nav-clock{
-  font-family:var(--mono);font-size:.76rem;color:var(--muted-2);
-  display:flex;align-items:center;gap:6px;
-}
-.nav-cta{
-  display:none;
-}
-@media (max-width:760px){
-  .navlinks{display:none;}
-}
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-/* ── HERO ── */
-.hero{padding:80px 0 70px;border-top:none;}
-.hero-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center;}
-.hero-avatar{
-  width:132px;height:132px;border-radius:22px;
-  background:linear-gradient(135deg,var(--blue),var(--red));
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:2.2rem;font-weight:700;color:#fff;
-  box-shadow:0 20px 60px -20px rgba(56,84,224,.5);
-  flex-shrink:0;
-}
-.hero-kicker{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--mono);font-size:.74rem;color:var(--muted);
-  border:1px solid var(--line);background:var(--panel);
-  padding:6px 12px;border-radius:99px;margin-bottom:22px;
-}
-.hero-kicker .dot{width:6px;height:6px;border-radius:50%;background:#2ecf6e;box-shadow:0 0 6px #2ecf6e;}
-h1{font-size:clamp(2.1rem,5.6vw,3.4rem);line-height:1.08;letter-spacing:-.03em;font-weight:700;max-width:680px;}
-h1 .accent{background:linear-gradient(120deg,var(--blue-soft),var(--red));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
-.hero-sub{color:var(--muted);font-size:1.05rem;margin-top:20px;max-width:560px;}
-.hero-actions{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;}
-.btn{
-  display:inline-flex;align-items:center;gap:8px;
-  font-size:.88rem;font-weight:600;
-  padding:12px 20px;border-radius:10px;
-  transition:transform .15s, border-color .15s, background .15s;
-}
-.btn-primary{background:linear-gradient(135deg,var(--blue),#2a3ab8);color:#fff;box-shadow:0 8px 24px -8px rgba(56,84,224,.6);}
-.btn-primary:hover{transform:translateY(-2px);}
-.btn-ghost{border:1px solid var(--line);color:var(--text);background:var(--panel);}
-.btn-ghost:hover{border-color:var(--blue-soft);transform:translateY(-2px);}
+    /* subtle background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 1000px 600px at 0% 20%, rgba(108, 124, 240, .08), transparent 60%),
+        radial-gradient(ellipse 800px 500px at 100% 80%, rgba(230, 58, 74, .06), transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-.stat-strip{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  margin-top:56px;border:1px solid var(--line);border-radius:16px;overflow:hidden;
-  background:var(--panel);
-}
-.stat-cell{padding:20px 18px;border-right:1px solid var(--line);}
-.stat-cell:last-child{border-right:none;}
-.stat-num{font-family:var(--mono);font-size:1.5rem;font-weight:700;color:var(--text);}
-.stat-lbl{font-size:.72rem;color:var(--muted);margin-top:4px;letter-spacing:.02em;}
-@media (max-width:640px){
-  .stat-strip{grid-template-columns:repeat(2,1fr);}
-  .stat-cell{border-bottom:1px solid var(--line);}
-  .stat-cell:nth-child(2n){border-right:none;}
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-/* ── ABOUT ── */
-.about-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:start;}
-@media (max-width:840px){.about-grid{grid-template-columns:1fr;}}
-.about-text p{color:#d8d8de;margin-bottom:16px;}
-.about-text b{color:var(--text);}
-.info-card{
-  border:1px solid var(--line);border-radius:16px;background:var(--panel);overflow:hidden;
-}
-.info-card-top{
-  padding:22px 20px;border-bottom:1px solid var(--line);
-  display:flex;align-items:center;gap:14px;
-}
-.info-avatar{
-  width:48px;height:48px;border-radius:12px;flex-shrink:0;
-  background:linear-gradient(135deg,var(--blue),var(--red));
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-weight:700;color:#fff;font-size:.9rem;
-}
-.info-card-top .n{font-weight:700;font-size:.95rem;}
-.info-card-top .s{font-size:.78rem;color:var(--muted);}
-.info-rows{padding:6px 0;}
-.info-row{
-  display:flex;justify-content:space-between;gap:12px;
-  padding:11px 20px;font-size:.84rem;border-bottom:1px solid var(--line-soft);
-}
-.info-row:last-child{border-bottom:none;}
-.info-row .k{color:var(--muted-2);}
-.info-row .v{color:var(--text);font-weight:500;text-align:right;}
-.info-row a.v:hover{color:var(--blue-soft);}
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-/* ── STACK ── */
-.stack-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-@media (max-width:760px){.stack-grid{grid-template-columns:repeat(2,1fr);}}
-.stack-card{
-  border:1px solid var(--line);border-radius:14px;background:var(--panel);
-  padding:18px;transition:border-color .15s, transform .15s;
-}
-.stack-card:hover{border-color:var(--blue-soft);transform:translateY(-3px);}
-.stack-icon{
-  width:36px;height:36px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--panel-2);border:1px solid var(--line);
-  color:var(--blue-soft);margin-bottom:14px;
-}
-.stack-name{font-weight:700;font-size:.9rem;}
-.stack-cat{font-family:var(--mono);font-size:.68rem;color:var(--muted-2);margin-top:3px;text-transform:uppercase;letter-spacing:.06em;}
+    ::selection {
+      background: var(--accent);
+      color: #fff;
+    }
 
-/* ── PROJECTS ── */
-.project-card{
-  border:1px solid var(--line);border-radius:18px;background:var(--panel);
-  overflow:hidden;display:grid;grid-template-columns:220px 1fr;
-}
-@media (max-width:700px){.project-card{grid-template-columns:1fr;}}
-.project-media{
-  background:
-    linear-gradient(135deg, rgba(56,84,224,.4), rgba(224,38,63,.3)),
-    repeating-linear-gradient(120deg, rgba(255,255,255,.04) 0 2px, transparent 2px 22px);
-  display:flex;align-items:center;justify-content:center;min-height:160px;
-}
-.project-media span{font-family:var(--mono);font-size:2.4rem;font-weight:700;color:rgba(255,255,255,.92);}
-.project-body{padding:26px 28px;}
-.project-tag-row{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
-.tag{
-  font-family:var(--mono);font-size:.68rem;padding:4px 10px;border-radius:99px;
-  background:var(--panel-2);border:1px solid var(--line);color:var(--muted);
-}
-.project-title{font-size:1.2rem;font-weight:700;margin-bottom:10px;}
-.project-desc{color:var(--muted);font-size:.9rem;margin-bottom:18px;}
-.project-link{
-  display:inline-flex;align-items:center;gap:7px;font-size:.85rem;font-weight:600;color:var(--blue-soft);
-}
+    .wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 28px;
+      position: relative;
+      z-index: 1;
+    }
 
-.upcoming-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
-@media (max-width:700px){.upcoming-grid{grid-template-columns:1fr;}}
-.upcoming-card{
-  border:1px dashed var(--line);border-radius:14px;padding:20px;position:relative;
-  background:var(--panel-2);
-}
-.upcoming-badge{
-  position:absolute;top:16px;right:16px;
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;
-  color:var(--gold);background:rgba(224,168,58,.12);border:1px solid rgba(224,168,58,.3);
-  padding:3px 9px;border-radius:99px;
-}
-.upcoming-num{font-family:var(--mono);font-size:.72rem;color:var(--muted-2);display:block;margin-bottom:8px;}
-.upcoming-title{font-weight:700;font-size:.95rem;margin-bottom:6px;padding-right:80px;}
-.upcoming-desc{font-size:.82rem;color:var(--muted);}
+    section {
+      padding: 96px 0 80px;
+      border-top: 1px solid var(--border);
+    }
 
-/* ── SYRIX ── */
-.syrix-card{
-  border:1px solid var(--line);border-radius:18px;background:var(--panel);padding:32px;
-  position:relative;overflow:hidden;
-}
-.syrix-card::before{
-  content:'';position:absolute;top:-40%;right:-10%;width:340px;height:340px;
-  background:radial-gradient(circle, rgba(56,84,224,.22), transparent 70%);
-  pointer-events:none;
-}
-.syrix-top{display:flex;align-items:center;gap:14px;margin-bottom:18px;position:relative;}
-.syrix-mark{
-  width:46px;height:46px;border-radius:12px;flex-shrink:0;
-  background:linear-gradient(135deg,var(--blue),var(--red));
-  display:flex;align-items:center;justify-content:center;color:#fff;
-}
-.syrix-name{font-weight:700;font-size:1.1rem;}
-.syrix-role{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--mono);font-size:.68rem;color:var(--gold);
-  background:rgba(224,168,58,.1);border:1px solid rgba(224,168,58,.3);
-  padding:2px 10px;border-radius:99px;margin-top:4px;
-}
-.syrix-desc{color:#d8d8de;font-size:.92rem;max-width:620px;position:relative;margin-bottom:20px;}
-.syrix-values{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;position:relative;}
-.syrix-value{
-  font-family:var(--mono);font-size:.7rem;padding:5px 12px;border-radius:99px;
-  background:var(--panel-2);border:1px solid var(--line);color:var(--muted);
-}
-.syrix-cofounders{display:flex;gap:20px;flex-wrap:wrap;position:relative;margin-bottom:22px;}
-.cofounder{display:flex;align-items:center;gap:10px;}
-.cofounder-avatar{
-  width:34px;height:34px;border-radius:9px;flex-shrink:0;
-  background:var(--panel-2);border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--text);
-}
-.cofounder-name{font-size:.82rem;font-weight:600;}
-.cofounder-role{font-size:.7rem;color:var(--muted-2);}
+    section:first-of-type {
+      border-top: none;
+    }
 
-/* ── CONTACT ── */
-.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
-@media (max-width:820px){.contact-grid{grid-template-columns:repeat(2,1fr);}}
-.contact-card{
-  border:1px solid var(--line);border-radius:16px;background:var(--panel);
-  padding:22px 20px;transition:border-color .15s, transform .15s;
-}
-.contact-card:hover{border-color:var(--blue-soft);transform:translateY(-3px);}
-.contact-icon{
-  width:38px;height:38px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--panel-2);border:1px solid var(--line);color:var(--text);
-  margin-bottom:16px;
-}
-.contact-name{font-weight:700;font-size:.92rem;margin-bottom:4px;}
-.contact-sub{font-size:.78rem;color:var(--muted);font-family:var(--mono);margin-bottom:14px;}
-.contact-go{
-  font-size:.78rem;font-weight:600;color:var(--blue-soft);
-  display:flex;align-items:center;gap:6px;
-}
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-/* ── FOOTER CTA ── */
-.footer-cta{
-  border-top:1px solid var(--line-soft);
-  padding:70px 0;
-  text-align:center;
-}
-.footer-cta h2{margin-bottom:10px;}
-.footer-cta p{color:var(--muted);margin-bottom:30px;}
-.footer-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
-.footer-bottom{
-  border-top:1px solid var(--line-soft);
-  padding:24px 0;
-  font-size:.78rem;color:var(--muted-2);
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
-}
-.footer-bottom .flag-mark{display:flex;align-items:center;gap:8px;}
+    .eyebrow::before {
+      content: '';
+      width: 28px;
+      height: 1.5px;
+      background: var(--accent);
+    }
 
-a:focus-visible{outline:2px solid var(--blue);outline-offset:2px;}
-</style>
+    h2 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      margin-bottom: 14px;
+    }
+
+    .lede {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    /* ── Terminal-style status bar (navbar) ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(11, 11, 15, .78);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -.01em;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      font-size: .85rem;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      transition: color .15s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-clock {
+      font-family: var(--font-mono);
+      font-size: .75rem;
+      color: var(--muted-2);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    @media (max-width: 760px) {
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 72px 0 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, var(--accent), var(--red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #fff;
+      box-shadow: 0 24px 60px -20px var(--accent-glow);
+      flex-shrink: 0;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 5px 14px;
+      border-radius: 99px;
+      margin-bottom: 24px;
+    }
+
+    .hero-kicker .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2ecf6e;
+      box-shadow: 0 0 8px #2ecf6e;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -.03em;
+      font-weight: 700;
+      max-width: 700px;
+    }
+
+    h1 .accent {
+      background: linear-gradient(120deg, var(--accent), var(--red));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-top: 22px;
+      max-width: 540px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .9rem;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: 10px;
+      transition: transform .15s, border-color .15s, background .15s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #4a5ad8);
+      color: #fff;
+      box-shadow: 0 8px 28px -8px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── Stats ── */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 60px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .stat-cell {
+      padding: 22px 20px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-cell:last-child {
+      border-right: none;
+    }
+
+    .stat-num {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .stat-lbl {
+      font-size: .7rem;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: .02em;
+    }
+
+    @media (max-width: 640px) {
+      .stat-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat-cell {
+        border-bottom: 1px solid var(--border);
+      }
+
+      .stat-cell:nth-child(2n) {
+        border-right: none;
+      }
+    }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    @media (max-width: 840px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .about-text p {
+      color: #d6d6e0;
+      margin-bottom: 16px;
+    }
+
+    .about-text b {
+      color: var(--text);
+    }
+
+    .info-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .info-card-top {
+      padding: 22px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .info-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: #fff;
+      font-size: .9rem;
+    }
+
+    .info-card-top .n {
+      font-weight: 700;
+      font-size: .95rem;
+    }
+
+    .info-card-top .s {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+
+    .info-rows {
+      padding: 6px 0;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 20px;
+      font-size: .84rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-row .k {
+      color: var(--muted-2);
+    }
+
+    .info-row .v {
+      color: var(--text);
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .info-row a.v:hover {
+      color: var(--accent);
+    }
+
+    /* ── Stack ── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 760px) {
+      .stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stack-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      padding: 20px 16px;
+      transition: border-color .15s, transform .15s;
+    }
+
+    .stack-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .stack-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .stack-name {
+      font-weight: 700;
+      font-size: .9rem;
+    }
+
+    .stack-cat {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--muted-2);
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    /* ── Projects ── */
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+    }
+
+    @media (max-width: 700px) {
+      .project-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .project-media {
+      background: linear-gradient(135deg, rgba(108, 124, 240, .3), rgba(230, 58, 74, .2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      border-right: 1px solid var(--border);
+    }
+
+    .project-media span {
+      font-family: var(--font-mono);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .9);
+    }
+
+    .project-body {
+      padding: 28px 32px;
+    }
+
+    .project-tag-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      padding: 4px 12px;
+      border-radius: 99px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .project-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 20px;
+    }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .upcoming-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 700px) {
+      .upcoming-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .upcoming-card {
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      background: var(--bg-soft);
+    }
+
+    .upcoming-badge {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-family: var(--font-mono);
+      font-size: .6rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(230, 184, 74, .12);
+      border: 1px solid rgba(230, 184, 74, .3);
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+
+    .upcoming-num {
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      color: var(--muted-2);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .upcoming-title {
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: 6px;
+      padding-right: 80px;
+    }
+
+    .upcoming-desc {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    /* ── Syrix ── */
+    .syrix-card {
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      padding: 36px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .syrix-card::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(108, 124, 240, .15), transparent 70%);
+      pointer-events: none;
+    }
+
+    .syrix-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .syrix-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+    }
+
+    .syrix-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .syrix-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      color: var(--gold);
+      background: rgba(230, 184, 74, .1);
+      border: 1px solid rgba(230, 184, 74, .3);
+      padding: 2px 12px;
+      border-radius: 99px;
+      margin-top: 4px;
+    }
+
+    .syrix-desc {
+      color: #d6d6e0;
+      font-size: .92rem;
+      max-width: 640px;
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .syrix-values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .syrix-value {
+      font-family: var(--font-mono);
+      font-size: .65rem;
+      padding: 5px 14px;
+      border-radius: 99px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .syrix-cofounders {
+      display: flex;
+      gap: 28px;
+      flex-wrap: wrap;
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    .cofounder {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cofounder-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: .7rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cofounder-name {
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .cofounder-role {
+      font-size: .7rem;
+      color: var(--muted-2);
+    }
+
+    /* ── Contact ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 820px) {
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .contact-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--surface);
+      padding: 24px 20px;
+      transition: border-color .15s, transform .15s;
+    }
+
+    .contact-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .contact-name {
+      font-weight: 700;
+      font-size: .92rem;
+      margin-bottom: 4px;
+    }
+
+    .contact-sub {
+      font-size: .78rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      margin-bottom: 14px;
+    }
+
+    .contact-go {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── Footer ── */
+    .footer-cta {
+      border-top: 1px solid var(--border);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .footer-cta h2 {
+      margin-bottom: 10px;
+    }
+
+    .footer-cta p {
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .footer-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      font-size: .78rem;
+      color: var(--muted-2);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-bottom .flag-mark {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ── scroll reveal (simple) ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="wrap">
-    <div class="brand">
-      <div class="brand-mark">DP</div>
-      DsPrimis
+  <!-- navbar -->
+  <header class="topbar">
+    <div class="wrap">
+      <div class="brand">
+        <div class="brand-mark">DP</div>
+        DsPrimis
+      </div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#stack">Stack</a>
+        <a href="#projects">Projects</a>
+        <a href="#syrix">Syrix</a>
+        <a href="#connect">Connect</a>
+      </div>
+      <div class="nav-clock" id="nav-clock">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="nav-clock-time">--:--</span>
+      </div>
     </div>
-    <div class="navlinks">
-      <a href="#about">About</a>
-      <a href="#stack">Stack</a>
-      <a href="#projects">Projects</a>
-      <a href="#syrix">Syrix</a>
-      <a href="#connect">Connect</a>
-    </div>
-    <div class="nav-clock" id="nav-clock">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span id="nav-clock-time">--:--</span>
-    </div>
-  </div>
-</div>
+  </header>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-kicker"><span class="dot"></span>Available for new projects</div>
-        <h1>Building tools people rely on <span class="accent">inside WhatsApp.</span></h1>
-        <p class="hero-sub">I'm DsPrimis — Fritz — a self-taught developer from Haiti. I build WhatsApp bots, automations, and the web platforms that connect to them, plus co-run Syrix, a small tech community.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            Message me
-          </a>
-          <a class="btn btn-ghost" href="#projects">
-            See my work
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="hero-avatar">DP</div>
-    </div>
-
-    <div class="stat-strip">
-      <div class="stat-cell">
-        <div class="stat-num">2024</div>
-        <div class="stat-lbl">Coding since</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">18</div>
-        <div class="stat-lbl">Years old</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">Haiti</div>
-        <div class="stat-lbl">Based in</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">Syrix</div>
-        <div class="stat-lbl">Co-founder at</div>
-      </div>
-    </div>
-  </div>
-</header>
-
-<section id="about">
-  <div class="wrap">
-    <div class="eyebrow">About</div>
-    <h2>The person behind DsPrimis</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>My name is <b>Fritz</b>, but most people know me as <b>DsPrimis</b>. I'm from <b>Haiti</b>, born <b>November 5, 2007</b>, and I picked up coding seriously in <b>2024</b> — no computer science degree, no bootcamp. Just a lot of late nights opening an editor, breaking things, and figuring out why they broke until it started making sense.</p>
-        <p>My work is almost entirely centered on <b>WhatsApp</b> — it's where everyone already spends their time, so it's the platform where a small tool can make the biggest real difference. Bots that search information without leaving the chat, protect a group from spam and unwanted links, or keep a paired number safe. Small improvements to something people already use every day.</p>
-        <p>Alongside my own projects, I co-founded <b>Syrix</b>, a selective community built to bring developers, innovators and digital creators together under one roof.</p>
-      </div>
-      <div class="info-card">
-        <div class="info-card-top">
-          <div class="info-avatar">DP</div>
-          <div>
-            <div class="n">DsPrimis</div>
-            <div class="s">Web Developer</div>
-          </div>
-        </div>
-        <div class="info-rows">
-          <div class="info-row"><span class="k">Real name</span><span class="v">Fritz</span></div>
-          <div class="info-row"><span class="k">Born</span><span class="v">Nov 5, 2007</span></div>
-          <div class="info-row"><span class="k">Location</span><span class="v">Haiti</span></div>
-          <div class="info-row"><span class="k">Coding since</span><span class="v">2024</span></div>
-          <div class="info-row"><span class="k">Company</span><span class="v">Co-founder, Syrix</span></div>
-          <div class="info-row"><span class="k">GitHub</span><a class="v" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener">@DEVPRIMIS</a></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="stack">
-  <div class="wrap">
-    <div class="eyebrow">Tech stack</div>
-    <h2>Tools I build with</h2>
-    <p class="lede">JavaScript is home base for pretty much everything I ship. Python comes out for scripting and quick logic that doesn't need a full server around it.</p>
-    <div class="stack-grid">
-      <div class="stack-card">
-        <div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-        <div class="stack-name">JavaScript</div>
-        <div class="stack-cat">Core language</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10h10"/></svg></div>
-        <div class="stack-name">Python</div>
-        <div class="stack-cat">Scripting</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-        <div class="stack-name">Node.js</div>
-        <div class="stack-cat">Runtime</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
-        <div class="stack-name">WhatsApp Bots</div>
-        <div class="stack-cat">Specialty</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></div>
-        <div class="stack-name">REST APIs</div>
-        <div class="stack-cat">Integration</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.5 2h5l1 3.5 3.4 1.4 3.1-2 2.5 4.3-2.5 2.8v3.9l2.5 2.8-2.5 4.3-3.1-2-3.4 1.4-1 3.5h-5l-1-3.5-3.4-1.4-3.1 2-2.5-4.3 2.5-2.8v-3.9L.5 8.9 3 4.6l3.1 2 3.4-1.4 1-3.2z"/></svg></div>
-        <div class="stack-name">Automation</div>
-        <div class="stack-cat">Specialty</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div>
-        <div class="stack-name">Git</div>
-        <div class="stack-cat">Version control</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></div>
-        <div class="stack-name">Vercel</div>
-        <div class="stack-cat">Deployment</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="projects">
-  <div class="wrap">
-    <div class="eyebrow">Featured work</div>
-    <h2>Projects worth showing</h2>
-    <p class="lede">One live and actively maintained right now — two more already in progress.</p>
-
-    <div class="project-card">
-      <div class="project-media"><span>MD</span></div>
-      <div class="project-body">
-        <div class="project-tag-row">
-          <span class="tag">WhatsApp Bot</span>
-          <span class="tag">Node.js</span>
-          <span class="tag">Live</span>
-        </div>
-        <div class="project-title">Squichy MD</div>
-        <p class="project-desc">An automated WhatsApp bot built to help people use the platform more safely and productively — searching information online without leaving the chat, protecting groups from spam and unwanted links, and protecting a user's own paired number. Pairs directly through the web, no extra app required.</p>
-        <a class="project-link" href="https://squichy-mds.vercel.app" target="_blank" rel="noopener">
-          Visit squichy-mds.vercel.app
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-        </a>
-      </div>
-    </div>
-
-    <div class="upcoming-grid">
-      <div class="upcoming-card">
-        <span class="upcoming-badge">Coming soon</span>
-        <span class="upcoming-num">01</span>
-        <div class="upcoming-title">Untitled project</div>
-        <div class="upcoming-desc">Details still under wraps — full write-up and link will land here the moment it's ready to share.</div>
-      </div>
-      <div class="upcoming-card">
-        <span class="upcoming-badge">Coming soon</span>
-        <span class="upcoming-num">02</span>
-        <div class="upcoming-title">Untitled project</div>
-        <div class="upcoming-desc">Same story — in progress right now. Check back soon for the reveal.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="syrix">
-  <div class="wrap">
-    <div class="eyebrow">Community</div>
-    <h2>Co-founder at Syrix</h2>
-    <div class="syrix-card">
-      <div class="syrix-top">
-        <div class="syrix-mark">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
+  <!-- hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
         <div>
-          <div class="syrix-name">Syrix</div>
-          <span class="syrix-role">Co-founder</span>
-        </div>
-      </div>
-      <p class="syrix-desc">Syrix is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount.</p>
-      <div class="syrix-values">
-        <span class="syrix-value">Curiosity</span>
-        <span class="syrix-value">Innovation</span>
-        <span class="syrix-value">Excellence</span>
-        <span class="syrix-value">Professionalism</span>
-        <span class="syrix-value">Collaboration</span>
-        <span class="syrix-value">Impact</span>
-      </div>
-      <div class="syrix-cofounders">
-        <div class="cofounder">
-          <div class="cofounder-avatar">IB</div>
-          <div>
-            <div class="cofounder-name">InconnuBoy</div>
-            <div class="cofounder-role">Co-founder</div>
+          <div class="hero-kicker"><span class="dot"></span>available for new projects</div>
+          <h1>Building tools people rely on <span class="accent">inside WhatsApp.</span></h1>
+          <p class="hero-sub">I'm DsPrimis — Fritz, a self-taught developer from Haiti. I build WhatsApp bots, automations, and the web platforms that connect to them, plus co-run Syrix, a small tech community.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+              Message me
+            </a>
+            <a class="btn btn-ghost" href="#projects">See my work <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg></a>
           </div>
         </div>
-        <div class="cofounder">
-          <div class="cofounder-avatar">DP</div>
-          <div>
-            <div class="cofounder-name">DsPrimis</div>
-            <div class="cofounder-role">Co-founder</div>
+        <div class="hero-avatar">DP</div>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat-cell"><div class="stat-num">2024</div><div class="stat-lbl">coding since</div></div>
+        <div class="stat-cell"><div class="stat-num">18</div><div class="stat-lbl">years old</div></div>
+        <div class="stat-cell"><div class="stat-num">Haiti</div><div class="stat-lbl">based in</div></div>
+        <div class="stat-cell"><div class="stat-num">Syrix</div><div class="stat-lbl">co-founder at</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- about -->
+  <section id="about">
+    <div class="wrap">
+      <div class="eyebrow reveal">About</div>
+      <h2 class="reveal">The person behind DsPrimis</h2>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <p>My name is <b>Fritz</b>, but most people know me as <b>DsPrimis</b>. I'm from <b>Haiti</b>, born <b>November 5, 2007</b>, and I picked up coding seriously in <b>2024</b> — no computer science degree, no bootcamp. Just a lot of late nights opening an editor, breaking things, and figuring out why they broke until it started making sense.</p>
+          <p>My work is almost entirely centered on <b>WhatsApp</b> — it's where everyone already spends their time, so it's the platform where a small tool can make the biggest real difference. Bots that search information without leaving the chat, protect a group from spam and unwanted links, or keep a paired number safe. Small improvements to something people already use every day.</p>
+          <p>Alongside my own projects, I co-founded <b>Syrix</b>, a selective community built to bring developers, innovators and digital creators together under one roof.</p>
+        </div>
+        <div class="info-card reveal">
+          <div class="info-card-top">
+            <div class="info-avatar">DP</div>
+            <div><div class="n">DsPrimis</div><div class="s">Web Developer</div></div>
+          </div>
+          <div class="info-rows">
+            <div class="info-row"><span class="k">Real name</span><span class="v">Fritz</span></div>
+            <div class="info-row"><span class="k">Born</span><span class="v">Nov 5, 2007</span></div>
+            <div class="info-row"><span class="k">Location</span><span class="v">Haiti</span></div>
+            <div class="info-row"><span class="k">Coding since</span><span class="v">2024</span></div>
+            <div class="info-row"><span class="k">Company</span><span class="v">Co-founder, Syrix</span></div>
+            <div class="info-row"><span class="k">GitHub</span><a class="v" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener">@DEVPRIMIS</a></div>
           </div>
         </div>
       </div>
-      <a class="project-link" href="https://syrixcompany.zone.id" target="_blank" rel="noopener">
-        Visit syrixcompany.zone.id
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
-      </a>
+    </div>
+  </section>
+
+  <!-- stack -->
+  <section id="stack">
+    <div class="wrap">
+      <div class="eyebrow reveal">Tech stack</div>
+      <h2 class="reveal">Tools I build with</h2>
+      <p class="lede reveal">JavaScript is home base for pretty much everything I ship. Python comes out for scripting and quick logic that doesn't need a full server around it.</p>
+      <div class="stack-grid">
+        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="stack-name">JavaScript</div><div class="stack-cat">Core language</div></div>
+        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10h10"/></svg></div><div class="stack-name">Python</div><div class="stack-cat">Scripting</div></div>
+        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="stack-name">Node.js</div><div class="stack-cat">Runtime</div></div>
+        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="stack-name">WhatsApp Bots</div><div class="stack-cat">Specialty</div></div>
+        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></div><div class="stack-name">REST APIs</div><div class="stack-cat">Integration</div></div>
+        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.5 2h5l1 3.5 3.4 1.4 3.1-2 2.5 4.3-2.5 2.8v3.9l2.5 2.8-2.5 4.3-3.1-2-3.4 1.4-1 3.5h-5l-1-3.5-3.4-1.4-3.1 2-2.5-4.3 2.5-2.8v-3.9L.5 8.9 3 4.6l3.1 2 3.4-1.4 1-3.2z"/></svg></div><div class="stack-name">Automation</div><div class="stack-cat">Specialty</div></div>
+        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><div class="stack-name">Git</div><div class="stack-cat">Version control</div></div>
+        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></div><div class="stack-name">Vercel</div><div class="stack-cat">Deployment</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- projects -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="eyebrow reveal">Featured work</div>
+      <h2 class="reveal">Projects worth showing</h2>
+      <p class="lede reveal">One live and actively maintained right now — two more already in progress.</p>
+
+      <div class="project-card reveal">
+        <div class="project-media"><span>MD</span></div>
+        <div class="project-body">
+          <div class="project-tag-row"><span class="tag">WhatsApp Bot</span><span class="tag">Node.js</span><span class="tag">Live</span></div>
+          <div class="project-title">Squichy MD</div>
+          <p class="project-desc">An automated WhatsApp bot built to help people use the platform more safely and productively — searching information online without leaving the chat, protecting groups from spam and unwanted links, and protecting a user's own paired number. Pairs directly through the web, no extra app required.</p>
+          <a class="project-link" href="https://squichy-mds.vercel.app" target="_blank" rel="noopener">Visit squichy-mds.vercel.app <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+        </div>
+      </div>
+
+      <div class="upcoming-grid">
+        <div class="upcoming-card reveal"><span class="upcoming-badge">Coming soon</span><span class="upcoming-num">01</span><div class="upcoming-title">Untitled project</div><div class="upcoming-desc">Details still under wraps — full write-up and link will land here the moment it's ready to share.</div></div>
+        <div class="upcoming-card reveal"><span class="upcoming-badge">Coming soon</span><span class="upcoming-num">02</span><div class="upcoming-title">Untitled project</div><div class="upcoming-desc">Same story — in progress right now. Check back soon for the reveal.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- syrix -->
+  <section id="syrix">
+    <div class="wrap">
+      <div class="eyebrow reveal">Community</div>
+      <h2 class="reveal">Co-founder at Syrix</h2>
+      <div class="syrix-card reveal">
+        <div class="syrix-top">
+          <div class="syrix-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div><div class="syrix-name">Syrix</div><span class="syrix-role">Co-founder</span></div>
+        </div>
+        <p class="syrix-desc">Syrix is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount.</p>
+        <div class="syrix-values"><span class="syrix-value">Curiosity</span><span class="syrix-value">Innovation</span><span class="syrix-value">Excellence</span><span class="syrix-value">Professionalism</span><span class="syrix-value">Collaboration</span><span class="syrix-value">Impact</span></div>
+        <div class="syrix-cofounders">
+          <div class="cofounder"><div class="cofounder-avatar">IB</div><div><div class="cofounder-name">InconnuBoy</div><div class="cofounder-role">Co-founder</div></div></div>
+          <div class="cofounder"><div class="cofounder-avatar">DP</div><div><div class="cofounder-name">DsPrimis</div><div class="cofounder-role">Co-founder</div></div></div>
+        </div>
+        <a class="project-link" href="https://syrixcompany.zone.id" target="_blank" rel="noopener">Visit syrixcompany.zone.id <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- connect -->
+  <section id="connect">
+    <div class="wrap">
+      <div class="eyebrow reveal">Get in touch</div>
+      <h2 class="reveal">Find me online</h2>
+      <p class="lede reveal">WhatsApp is the fastest way to reach me directly.</p>
+      <div class="contact-grid">
+        <a class="contact-card reveal" href="https://wa.me/50956880231" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="contact-name">WhatsApp</div><div class="contact-sub">+509 5688 0231</div><div class="contact-go">Message directly <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+        <a class="contact-card reveal" href="https://t.me/dsprimis" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></div><div class="contact-name">Telegram</div><div class="contact-sub">t.me/dsprimis</div><div class="contact-go">Open chat <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+        <a class="contact-card reveal" href="https://www.youtube.com/@dsprimis" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.5 6.2a2.8 2.8 0 0 0-2-2C18.9 3.7 12 3.7 12 3.7s-6.9 0-8.5.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 5.8 2.8 2.8 0 0 0 2 2c1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-5.8z"/><polygon points="9.8 15.3 15.8 12 9.8 8.7"/></svg></div><div class="contact-name">YouTube</div><div class="contact-sub">@dsprimis</div><div class="contact-go">Watch videos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+        <a class="contact-card reveal" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><div class="contact-name">GitHub</div><div class="contact-sub">@DEVPRIMIS</div><div class="contact-go">Browse repos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer CTA -->
+  <div class="footer-cta">
+    <div class="wrap">
+      <h2 class="reveal">Got a project in mind?</h2>
+      <p class="reveal">Open to new collaborations, freelance work, and interesting builds — wherever you are.</p>
+      <div class="footer-actions reveal">
+        <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Message me on WhatsApp</a>
+        <a class="btn btn-ghost" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener">See all projects</a>
+      </div>
     </div>
   </div>
-</section>
 
-<section id="connect">
-  <div class="wrap">
-    <div class="eyebrow">Get in touch</div>
-    <h2>Find me online</h2>
-    <p class="lede">WhatsApp is the fastest way to reach me directly.</p>
-    <div class="contact-grid">
-      <a class="contact-card" href="https://wa.me/50956880231" target="_blank" rel="noopener">
-        <div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div>
-        <div class="contact-name">WhatsApp</div>
-        <div class="contact-sub">+509 5688 0231</div>
-        <div class="contact-go">Message directly <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
-      </a>
-      <a class="contact-card" href="https://t.me/dsprimis" target="_blank" rel="noopener">
-        <div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></div>
-        <div class="contact-name">Telegram</div>
-        <div class="contact-sub">t.me/dsprimis</div>
-        <div class="contact-go">Open chat <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
-      </a>
-      <a class="contact-card" href="https://www.youtube.com/@dsprimis" target="_blank" rel="noopener">
-        <div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.5 6.2a2.8 2.8 0 0 0-2-2C18.9 3.7 12 3.7 12 3.7s-6.9 0-8.5.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 5.8 2.8 2.8 0 0 0 2 2c1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-5.8z"/><polygon points="9.8 15.3 15.8 12 9.8 8.7"/></svg></div>
-        <div class="contact-name">YouTube</div>
-        <div class="contact-sub">@dsprimis</div>
-        <div class="contact-go">Watch videos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
-      </a>
-      <a class="contact-card" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener">
-        <div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div>
-        <div class="contact-name">GitHub</div>
-        <div class="contact-sub">@DEVPRIMIS</div>
-        <div class="contact-go">Browse repos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div>
-      </a>
+  <!-- footer bottom -->
+  <div class="footer-bottom">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+      <div class="flag-mark"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> DsPrimis — Haiti</div>
+      <div>© 2026 DsPrimis</div>
     </div>
   </div>
-</section>
 
-<div class="footer-cta">
-  <div class="wrap">
-    <h2>Got a project in mind?</h2>
-    <p>Open to new collaborations, freelance work, and interesting builds — wherever you are.</p>
-    <div class="footer-actions">
-      <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        Message me on WhatsApp
-      </a>
-      <a class="btn btn-ghost" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener">See all projects</a>
-    </div>
-  </div>
-</div>
+  <script>
+    // clock
+    function updateClock() {
+      const el = document.getElementById('nav-clock-time');
+      if (!el) return;
+      try {
+        const time = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'America/Port-au-Prince',
+          hour: '2-digit',
+          minute: '2-digit'
+        }).format(new Date());
+        el.textContent = time;
+      } catch (_) { el.textContent = '--:--'; }
+    }
+    updateClock();
+    setInterval(updateClock, 30000);
 
-<div class="footer-bottom">
-  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-    <div class="flag-mark">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-      DsPrimis — Haiti
-    </div>
-    <div>© 2026 DsPrimis</div>
-  </div>
-</div>
-
-<script>
-function updateClock() {
-  const el = document.getElementById('nav-clock-time');
-  if (!el) return;
-  try {
-    const time = new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'America/Port-au-Prince',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(new Date());
-    el.textContent = time;
-  } catch (e) {
-    el.textContent = '--:--';
-  }
-}
-updateClock();
-setInterval(updateClock, 30000);
-</script>
-
+    // scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
