@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DsPrimis · Developer & Builder</title>
   <meta name="description" content="DsPrimis (Fritz) — Haitian developer building WhatsApp bots and websites. Co-founder of Syrix." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     /* ── Reset & base ── */
     * {
@@ -14,19 +17,21 @@
     }
 
     :root {
-      --bg: #0a0a0e;
-      --bg-soft: #111118;
-      --surface: #181822;
-      --border: #282836;
-      --border-light: #3a3a4a;
-      --text: #eeeff4;
-      --muted: #9494a8;
-      --muted-2: #5a5a70;
-      --accent: #6c7cf0;
-      --accent-glow: rgba(108, 124, 240, 0.25);
-      --red: #e63a4a;
-      --gold: #e6b84a;
+      --bg: #08080c;
+      --bg-soft: #111116;
+      --surface: #15151d;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(255, 255, 255, 0.16);
+      --text: #f3f3f8;
+      --muted: #9c9cb2;
+      --muted-2: #64647c;
+      --accent: #6fae8a;
+      --accent-glow: rgba(111, 174, 138, 0.3);
+      --red: #274a3a;
+      --gold: #a3d9bb;
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-display: 'Space Grotesk', 'Inter', -apple-system, sans-serif;
+      --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
       --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       --max-w: 1100px;
     }
@@ -50,15 +55,17 @@
       position: fixed;
       inset: 0;
       background:
-        radial-gradient(ellipse 1000px 600px at 0% 20%, rgba(108, 124, 240, .07), transparent 60%),
-        radial-gradient(ellipse 800px 500px at 100% 80%, rgba(230, 58, 74, .05), transparent 50%);
+        radial-gradient(ellipse 1200px 700px at 10% -10%, rgba(111, 174, 138, .14), transparent 60%),
+        radial-gradient(ellipse 950px 650px at 100% 10%, rgba(163, 217, 187, .09), transparent 55%),
+        radial-gradient(ellipse 800px 550px at 15% 100%, rgba(39, 74, 58, .35), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 90% 90%, rgba(111, 174, 138, .08), transparent 55%);
       pointer-events: none;
       z-index: 0;
-      animation: pulseGlow 12s ease-in-out infinite alternate;
+      animation: pulseGlow 14s ease-in-out infinite alternate;
     }
 
     @keyframes pulseGlow {
-      0% { opacity: 0.6; }
+      0% { opacity: 0.65; }
       100% { opacity: 1; }
     }
 
@@ -114,10 +121,12 @@
     }
 
     h2 {
+      font-family: var(--font-display);
       font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: -.02em;
       margin-bottom: 14px;
+      color: var(--gold);
     }
 
     .lede {
@@ -150,7 +159,8 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-weight: 700;
+      font-family: var(--font-display);
+      font-weight: 600;
       font-size: 1.05rem;
       letter-spacing: -.01em;
     }
@@ -227,57 +237,67 @@
 
     /* ── Hero ── */
     .hero {
-      padding: 72px 0 56px;
+      padding: 60px 0 56px;
       position: relative;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+      background-size: 64px 64px;
+      background-position: center -1px;
+      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 95%);
+      mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 95%);
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 48px;
-      align-items: center;
-    }
-
-    .hero-avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 30px;
-      background: linear-gradient(135deg, var(--accent), var(--red));
+    .hero-top {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .hero-place {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
       font-family: var(--font-mono);
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: #fff;
-      box-shadow: 0 24px 60px -20px var(--accent-glow);
-      flex-shrink: 0;
-      transition: transform .4s ease, box-shadow .4s ease;
-      animation: floatAvatar 6s ease-in-out infinite;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      animation: fadeInUp .8s ease;
     }
 
-    @keyframes floatAvatar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    .hero-place .dots {
+      display: inline-flex;
+      gap: 4px;
     }
 
-    .hero-avatar:hover {
-      transform: scale(1.02) translateY(-4px);
-      box-shadow: 0 30px 80px -20px var(--accent-glow);
+    .hero-place .dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .hero-place .dots span:last-child {
+      background: var(--accent);
+      opacity: .7;
     }
 
     .hero-kicker {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-family: var(--font-mono);
-      font-size: .7rem;
+      gap: 9px;
+      font-family: var(--font-sans);
+      font-size: .78rem;
+      font-weight: 500;
       color: var(--muted);
       border: 1px solid var(--border);
       background: var(--surface);
-      padding: 5px 16px;
+      padding: 7px 16px 7px 12px;
       border-radius: 99px;
-      margin-bottom: 24px;
       animation: fadeInUp .8s ease;
     }
 
@@ -285,8 +305,8 @@
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: #2ecf6e;
-      box-shadow: 0 0 12px #2ecf6e;
+      background: #3ee08a;
+      box-shadow: 0 0 12px #3ee08a;
       animation: pulseDot 2s infinite;
     }
 
@@ -296,26 +316,119 @@
     }
 
     h1 {
-      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-family: var(--font-serif);
+      font-optical-sizing: auto;
+      font-size: clamp(2.4rem, 7vw, 4.1rem);
       line-height: 1.05;
-      letter-spacing: -.03em;
-      font-weight: 700;
-      max-width: 700px;
+      letter-spacing: -.01em;
+      font-weight: 600;
+      max-width: 680px;
       animation: fadeInUp .8s ease .1s both;
     }
 
     h1 .accent {
-      background: linear-gradient(120deg, var(--accent), var(--red));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      position: relative;
+      color: var(--gold);
     }
 
-    h1 .accent::after {
-      content: '_';
-      -webkit-text-fill-color: var(--accent);
-      animation: blink 1.2s step-end infinite;
+    .hero-role {
+      font-family: var(--font-mono);
+      font-size: .82rem;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-top: 20px;
+      max-width: 560px;
+      animation: fadeInUp .8s ease .16s both;
+    }
+
+    .hero-role .sep {
+      color: var(--muted-2);
+      margin: 0 8px;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.02rem;
+      margin-top: 14px;
+      max-width: 540px;
+      animation: fadeInUp .8s ease .2s both;
+    }
+
+    .hero-term {
+      margin-top: 32px;
+      max-width: 560px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(21, 21, 29, .7);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+      animation: fadeInUp .8s ease .26s both;
+    }
+
+    .hero-term-bar {
+      display: flex;
+      gap: 6px;
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-term-bar span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--border-light);
+    }
+
+    .hero-term-body {
+      padding: 18px 20px 20px;
+      font-family: var(--font-mono);
+      font-size: .84rem;
+    }
+
+    .hero-term-line {
+      color: var(--gold);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .hero-term-line + .hero-term-out {
+      margin: 8px 0 16px;
+    }
+
+    .hero-term-out {
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .hero-term-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .hero-term-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: .78rem;
+      color: var(--text);
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 99px;
+    }
+
+    .hero-term-pill svg { color: var(--gold); }
+
+    .term-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 14px;
+      background: var(--gold);
+      margin-left: 2px;
+      vertical-align: -2px;
+      animation: blink 1.1s step-end infinite;
     }
 
     @keyframes blink {
@@ -323,37 +436,45 @@
       50% { opacity: 0; }
     }
 
-    .hero-sub {
-      color: var(--muted);
-      font-size: 1.08rem;
-      margin-top: 22px;
-      max-width: 540px;
-      animation: fadeInUp .8s ease .2s both;
-    }
-
     .hero-actions {
       display: flex;
       gap: 12px;
-      margin-top: 36px;
+      margin-top: 28px;
       flex-wrap: wrap;
-      animation: fadeInUp .8s ease .3s both;
+      animation: fadeInUp .8s ease .32s both;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: .9rem;
+      font-size: .88rem;
       font-weight: 600;
-      padding: 12px 24px;
-      border-radius: 10px;
+      padding: 12px 22px;
+      border-radius: 99px;
       transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent), #4a5ad8);
-      color: #fff;
+      background: linear-gradient(135deg, var(--gold), var(--accent) 55%, var(--red));
+      color: #0c1610;
+      font-weight: 700;
       box-shadow: 0 8px 28px -8px var(--accent-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, .35) 50%, transparent 70%);
+      transform: translateX(-120%);
+      transition: transform .6s ease;
+    }
+
+    .btn-primary:hover::before {
+      transform: translateX(120%);
     }
 
     .btn-primary:hover {
@@ -368,7 +489,7 @@
     }
 
     .btn-ghost:hover {
-      border-color: var(--accent);
+      border-color: var(--gold);
       transform: translateY(-3px);
       box-shadow: 0 8px 24px -12px var(--accent-glow);
     }
@@ -544,7 +665,11 @@
       border: 1px solid var(--border);
       border-radius: 14px;
       background: var(--surface);
-      padding: 20px 16px;
+      padding: 26px 16px 22px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
       cursor: default;
     }
@@ -552,31 +677,33 @@
     .stack-card:hover {
       border-color: var(--accent);
       transform: translateY(-5px);
-      box-shadow: 0 12px 30px -12px rgba(108, 124, 240, .2);
+      box-shadow: 0 12px 30px -12px rgba(111, 174, 138, .22);
     }
 
-    .stack-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+    .stack-logo {
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--bg-soft);
-      border: 1px solid var(--border);
-      color: var(--accent);
       margin-bottom: 14px;
-      transition: color .2s ease, border-color .2s ease;
+      color: var(--accent);
+      transition: transform .25s ease;
     }
 
-    .stack-card:hover .stack-icon {
-      color: var(--text);
-      border-color: var(--accent);
+    .stack-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .stack-card:hover .stack-logo {
+      transform: scale(1.1) translateY(-2px);
     }
 
     .stack-name {
       font-weight: 700;
-      font-size: .9rem;
+      font-size: .87rem;
     }
 
     .stack-cat {
@@ -602,7 +729,7 @@
     .project-card:hover {
       border-color: var(--accent);
       transform: translateY(-4px);
-      box-shadow: 0 16px 40px -16px rgba(108, 124, 240, .15);
+      box-shadow: 0 16px 40px -16px rgba(111, 174, 138, .18);
     }
 
     @media (max-width: 700px) {
@@ -612,7 +739,7 @@
     }
 
     .project-media {
-      background: linear-gradient(135deg, rgba(108, 124, 240, .3), rgba(230, 58, 74, .2));
+      background: linear-gradient(135deg, rgba(111, 174, 138, .3), rgba(39, 74, 58, .35));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -622,7 +749,7 @@
     }
 
     .project-card:hover .project-media {
-      background: linear-gradient(135deg, rgba(108, 124, 240, .4), rgba(230, 58, 74, .3));
+      background: linear-gradient(135deg, rgba(111, 174, 138, .4), rgba(39, 74, 58, .45));
     }
 
     .project-media span {
@@ -715,8 +842,8 @@
       letter-spacing: .08em;
       text-transform: uppercase;
       color: var(--gold);
-      background: rgba(230, 184, 74, .12);
-      border: 1px solid rgba(230, 184, 74, .3);
+      background: rgba(163, 217, 187, .14);
+      border: 1px solid rgba(163, 217, 187, .35);
       padding: 3px 10px;
       border-radius: 99px;
     }
@@ -764,7 +891,7 @@
       right: -10%;
       width: 400px;
       height: 400px;
-      background: radial-gradient(circle, rgba(108, 124, 240, .12), transparent 70%);
+      background: radial-gradient(circle, rgba(111, 174, 138, .14), transparent 70%);
       pointer-events: none;
     }
 
@@ -800,8 +927,8 @@
       font-family: var(--font-mono);
       font-size: .65rem;
       color: var(--gold);
-      background: rgba(230, 184, 74, .1);
-      border: 1px solid rgba(230, 184, 74, .3);
+      background: rgba(163, 217, 187, .12);
+      border: 1px solid rgba(163, 217, 187, .35);
       padding: 2px 12px;
       border-radius: 99px;
       margin-top: 4px;
@@ -903,7 +1030,7 @@
     .contact-card:hover {
       border-color: var(--accent);
       transform: translateY(-5px);
-      box-shadow: 0 12px 32px -12px rgba(108, 124, 240, .15);
+      box-shadow: 0 12px 32px -12px rgba(111, 174, 138, .18);
     }
 
     .contact-icon {
@@ -998,12 +1125,35 @@
       opacity: 0;
       transform: translateY(30px);
       transition: opacity .8s cubic-bezier(0.2, 0.9, 0.3, 1), transform .8s cubic-bezier(0.2, 0.9, 0.3, 1);
+      transition-delay: var(--reveal-delay, 0s);
     }
 
     .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
+    .stack-grid .stack-card:nth-child(1) { --reveal-delay: 0s; }
+    .stack-grid .stack-card:nth-child(2) { --reveal-delay: .05s; }
+    .stack-grid .stack-card:nth-child(3) { --reveal-delay: .1s; }
+    .stack-grid .stack-card:nth-child(4) { --reveal-delay: .15s; }
+    .stack-grid .stack-card:nth-child(5) { --reveal-delay: .2s; }
+    .stack-grid .stack-card:nth-child(6) { --reveal-delay: .25s; }
+    .stack-grid .stack-card:nth-child(7) { --reveal-delay: .3s; }
+    .stack-grid .stack-card:nth-child(8) { --reveal-delay: .35s; }
+    .stack-grid .stack-card:nth-child(9) { --reveal-delay: .4s; }
+    .stack-grid .stack-card:nth-child(10) { --reveal-delay: .45s; }
+    .stack-grid .stack-card:nth-child(11) { --reveal-delay: .5s; }
+    .stack-grid .stack-card:nth-child(12) { --reveal-delay: .55s; }
+    .stack-grid .stack-card:nth-child(13) { --reveal-delay: .6s; }
+    .stack-grid .stack-card:nth-child(14) { --reveal-delay: .65s; }
+
+    .contact-grid .contact-card:nth-child(1) { --reveal-delay: 0s; }
+    .contact-grid .contact-card:nth-child(2) { --reveal-delay: .08s; }
+    .contact-grid .contact-card:nth-child(3) { --reveal-delay: .16s; }
+    .contact-grid .contact-card:nth-child(4) { --reveal-delay: .24s; }
+
+    .upcoming-grid .upcoming-card:nth-child(2) { --reveal-delay: .1s; }
 
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -1032,9 +1182,31 @@
     ::-webkit-scrollbar-thumb:hover {
       background: var(--accent);
     }
+
+    /* ── Ambient particles ── */
+    .bg-particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: particleFloat ease-in-out infinite;
+    }
+
+    @keyframes particleFloat {
+      0%, 100% { transform: translateY(0) scale(1); opacity: var(--p-op, .5); }
+      50% { transform: translateY(-22px) scale(1.15); opacity: calc(var(--p-op, .5) * 0.4); }
+    }
   </style>
 </head>
 <body>
+
+  <div class="bg-particles" id="bg-particles" aria-hidden="true"></div>
 
   <!-- navbar -->
   <header class="topbar">
@@ -1060,20 +1232,40 @@
   <!-- hero -->
   <section class="hero">
     <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <div class="hero-kicker"><span class="dot"></span>available for new projects</div>
-          <h1>Building tools people rely on <span class="accent">inside WhatsApp</span></h1>
-          <p class="hero-sub">I'm DsPrimis — Fritz, a self-taught developer from Haiti. I build WhatsApp bots, automations, and the web platforms that connect to them, plus co-run Syrix, a small tech community.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-              Message me
-            </a>
-            <a class="btn btn-ghost" href="#projects">See my work <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg></a>
+      <div class="hero-top reveal">
+        <div class="hero-place">
+          <span class="dots"><span></span><span></span></span>
+          Haiti
+        </div>
+        <div class="hero-kicker"><span class="dot"></span>Available for new projects</div>
+      </div>
+
+      <h1 class="reveal">DsPrimis<span class="accent">.</span></h1>
+      <p class="hero-role reveal">WhatsApp bot developer<span class="sep">•</span>Full stack<span class="sep">•</span>Co-founder, Syrix</p>
+      <p class="hero-sub reveal">I'm Fritz, a self-taught developer from Haiti. I build WhatsApp bots, automations, and the web platforms that connect to them.</p>
+
+      <div class="hero-term reveal">
+        <div class="hero-term-bar"><span></span><span></span><span></span></div>
+        <div class="hero-term-body">
+          <div class="hero-term-line">$ whoami</div>
+          <div class="hero-term-out">Fritz — I build tools people actually keep using inside WhatsApp.</div>
+          <div class="hero-term-line">$ status</div>
+          <div class="hero-term-out">
+            <div class="hero-term-pills">
+              <span class="hero-term-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="nav-clock-time-hero">--:--</span></span>
+              <span class="hero-term-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>open to work</span>
+            </div>
+            <span class="term-cursor"></span>
           </div>
         </div>
-        <div class="hero-avatar">DP</div>
+      </div>
+
+      <div class="hero-actions reveal">
+        <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Message me
+        </a>
+        <a class="btn btn-ghost" href="#projects">See my work <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
 
       <div class="stat-strip">
@@ -1084,6 +1276,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- about -->
   <section id="about">
@@ -1121,17 +1314,24 @@
       <h2 class="reveal">Tools I build with</h2>
       <p class="lede reveal">JavaScript is home base for pretty much everything I ship. Python comes out for scripting and quick logic that doesn't need a full server around it.</p>
       <div class="stack-grid">
-        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div class="stack-name">JavaScript</div><div class="stack-cat">Core language</div></div>
-        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10h10"/></svg></div><div class="stack-name">Python</div><div class="stack-cat">Scripting</div></div>
-        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><div class="stack-name">Node.js</div><div class="stack-cat">Runtime</div></div>
-        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="stack-name">WhatsApp Bots</div><div class="stack-cat">Specialty</div></div>
-        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/></svg></div><div class="stack-name">REST APIs</div><div class="stack-cat">Integration</div></div>
-        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.5 2h5l1 3.5 3.4 1.4 3.1-2 2.5 4.3-2.5 2.8v3.9l2.5 2.8-2.5 4.3-3.1-2-3.4 1.4-1 3.5h-5l-1-3.5-3.4-1.4-3.1 2-2.5-4.3 2.5-2.8v-3.9L.5 8.9 3 4.6l3.1 2 3.4-1.4 1-3.2z"/></svg></div><div class="stack-name">Automation</div><div class="stack-cat">Specialty</div></div>
-        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><div class="stack-name">Git</div><div class="stack-cat">Version control</div></div>
-        <div class="stack-card reveal"><div class="stack-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></div><div class="stack-name">Vercel</div><div class="stack-cat">Deployment</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy"></div><div class="stack-name">JavaScript</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy"></div><div class="stack-name">TypeScript</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" loading="lazy"></div><div class="stack-name">Node.js</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" loading="lazy"></div><div class="stack-name">Python</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" alt="PHP" loading="lazy"></div><div class="stack-name">PHP</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" loading="lazy"></div><div class="stack-name">HTML5</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" loading="lazy"></div><div class="stack-name">CSS3</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="stack-name">WhatsApp Bots</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis" loading="lazy"></div><div class="stack-name">Redis</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" loading="lazy"></div><div class="stack-name">Linux</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" loading="lazy"></div><div class="stack-name">Git</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" loading="lazy" style="filter:invert(1)"></div><div class="stack-name">GitHub</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.simpleicons.org/vercel/ffffff" alt="Vercel" loading="lazy"></div><div class="stack-name">Vercel</div></div>
+        <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.simpleicons.org/render/46E3B7" alt="Render" loading="lazy"></div><div class="stack-name">Render</div></div>
       </div>
     </div>
   </section>
+
 
   <!-- projects -->
   <section id="projects">
@@ -1214,18 +1414,43 @@
   </div>
 
   <script>
+    // ambient particles
+    (function () {
+      const container = document.getElementById('bg-particles');
+      if (!container) return;
+      const colors = ['#6fae8a', '#a3d9bb', '#274a3a'];
+      const count = window.innerWidth < 700 ? 22 : 38;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('span');
+        p.className = 'particle';
+        const size = (Math.random() * 3 + 1.5).toFixed(1);
+        const color = colors[i % colors.length];
+        const opacity = (Math.random() * 0.4 + 0.25).toFixed(2);
+        p.style.cssText = `
+          left:${(Math.random() * 100).toFixed(2)}%;
+          top:${(Math.random() * 100).toFixed(2)}%;
+          width:${size}px; height:${size}px;
+          background:${color};
+          --p-op:${opacity};
+          box-shadow:0 0 ${size * 3}px ${color};
+          animation-duration:${(Math.random() * 5 + 4).toFixed(1)}s;
+          animation-delay:-${(Math.random() * 6).toFixed(1)}s;
+        `;
+        container.appendChild(p);
+      }
+    })();
+
     // clock
     function updateClock() {
-      const el = document.getElementById('nav-clock-time');
-      if (!el) return;
+      const els = [document.getElementById('nav-clock-time'), document.getElementById('nav-clock-time-hero')];
       try {
         const time = new Intl.DateTimeFormat('en-GB', {
           timeZone: 'America/Port-au-Prince',
           hour: '2-digit',
           minute: '2-digit'
         }).format(new Date());
-        el.textContent = time;
-      } catch (_) { el.textContent = '--:--'; }
+        els.forEach(el => { if (el) el.textContent = time; });
+      } catch (_) { els.forEach(el => { if (el) el.textContent = '--:--'; }); }
     }
     updateClock();
     setInterval(updateClock, 30000);
