@@ -1096,6 +1096,35 @@
       color: var(--text);
     }
 
+    .syrix-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .syrix-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      padding: 9px 16px;
+      border-radius: 99px;
+      transition: border-color .2s ease, transform .2s ease, color .2s ease;
+    }
+
+    .syrix-links a svg { color: var(--gold); flex-shrink: 0; }
+
+    .syrix-links a:hover {
+      border-color: var(--accent);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
     .syrix-cofounders {
       display: flex;
       gap: 28px;
@@ -1505,7 +1534,12 @@
           <div class="syrix-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
           <div><div class="syrix-name">Syrix Vision Company</div><span class="syrix-role" data-i18n="role_cofounder">Co-founder</span></div>
         </div>
-        <p class="syrix-desc" data-i18n="syrix_desc">Syrix Vision Company is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount.</p>
+        <p class="syrix-desc" data-i18n="syrix_desc">Syrix Vision Company is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount. We mostly build the tools we ourselves wish existed, then open them up for others to use.</p>
+        <div class="syrix-links">
+          <a href="https://github.com/SYRIX-COMPANY" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
+          <a href="https://www.instagram.com/syrixcompany" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>Instagram</a>
+          <a href="mailto:syrixcompany@gmail.com"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6c0-1.1-.9-2-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h16a2 2 0 0 0 2-2V6z"/><path d="m22 6-10 7L2 6"/></svg>syrixcompany@gmail.com</a>
+        </div>
         <div class="syrix-values"><span class="syrix-value" data-i18n="val_curiosity">Curiosity</span><span class="syrix-value" data-i18n="val_innovation">Innovation</span><span class="syrix-value" data-i18n="val_excellence">Excellence</span><span class="syrix-value" data-i18n="val_professionalism">Professionalism</span><span class="syrix-value" data-i18n="val_collaboration">Collaboration</span><span class="syrix-value" data-i18n="val_impact">Impact</span></div>
         <div class="syrix-cofounders">
           <div class="cofounder"><div class="cofounder-avatar">IB</div><div><div class="cofounder-name">InconnuBoy</div><div class="cofounder-role" data-i18n="role_cofounder">Co-founder</div></div></div>
@@ -1576,7 +1610,7 @@
         upcoming_desc1: "Details still under wraps — full write-up and link will land here the moment it's ready to share.",
         upcoming_desc2: "Same story — in progress right now. Check back soon for the reveal.",
         syrix_eyebrow: "Community", syrix_h2: "Co-founder at Syrix Vision Company", role_cofounder: "Co-founder",
-        syrix_desc: "Syrix Vision Company is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount.",
+        syrix_desc: "Syrix Vision Company is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount. We mostly build the tools we ourselves wish existed, then open them up for others to use.",
         val_curiosity: "Curiosity", val_innovation: "Innovation", val_excellence: "Excellence", val_professionalism: "Professionalism", val_collaboration: "Collaboration", val_impact: "Impact",
         connect_eyebrow: "Get in touch", connect_h2: "Find me online", connect_lede: "WhatsApp is the fastest way to reach me directly.",
         go_whatsapp: "Message directly", go_telegram: "Open chat", go_youtube: "Watch videos", go_github: "Browse repos",
@@ -1605,7 +1639,7 @@
         upcoming_desc1: "Détails encore secrets — la présentation complète et le lien arriveront ici dès que ce sera prêt à partager.",
         upcoming_desc2: "Même histoire — en cours actuellement. Reviens bientôt pour la révélation.",
         syrix_eyebrow: "Communauté", syrix_h2: "Co-fondateur chez Syrix Vision Company", role_cofounder: "Co-fondateur",
-        syrix_desc: "Syrix Vision Company est une communauté tech moderne que j'ai co-fondée avec InconnuBoy, pensée pour réunir développeurs, innovateurs et créateurs numériques — du développement web et mobile à l'IA, la cybersécurité, le cloud, le DevOps et l'open source. Un écosystème sélectif de 15 membres, centré sur la curiosité, l'innovation et un impact réel plutôt que sur le nombre.",
+        syrix_desc: "Syrix Vision Company est une communauté tech moderne que j'ai co-fondée avec InconnuBoy, pensée pour réunir développeurs, innovateurs et créateurs numériques — du développement web et mobile à l'IA, la cybersécurité, le cloud, le DevOps et l'open source. Un écosystème sélectif de 15 membres, centré sur la curiosité, l'innovation et un impact réel plutôt que sur le nombre. On construit surtout les outils qu'on aimerait avoir nous-mêmes, puis on les rend accessibles à tous.",
         val_curiosity: "Curiosité", val_innovation: "Innovation", val_excellence: "Excellence", val_professionalism: "Professionnalisme", val_collaboration: "Collaboration", val_impact: "Impact",
         connect_eyebrow: "Contact", connect_h2: "Me trouver en ligne", connect_lede: "WhatsApp est le moyen le plus rapide de me joindre directement.",
         go_whatsapp: "Écrire directement", go_telegram: "Ouvrir la discussion", go_youtube: "Voir les vidéos", go_github: "Voir les dépôts",
@@ -1634,7 +1668,7 @@
         upcoming_desc1: "Detalles aún bajo llave — la descripción completa y el enlace aparecerán aquí en cuanto estén listos.",
         upcoming_desc2: "La misma historia — en desarrollo ahora mismo. Vuelve pronto para la revelación.",
         syrix_eyebrow: "Comunidad", syrix_h2: "Cofundador en Syrix Vision Company", role_cofounder: "Cofundador",
-        syrix_desc: "Syrix Vision Company es una comunidad tech moderna que cofundé con InconnuBoy, creada para reunir a desarrolladores, innovadores y creadores digitales — desde desarrollo web y móvil hasta IA, ciberseguridad, cloud, DevOps y código abierto. Un ecosistema selectivo de 15 miembros centrado en la curiosidad, la innovación y el impacto real por encima del número de integrantes.",
+        syrix_desc: "Syrix Vision Company es una comunidad tech moderna que cofundé con InconnuBoy, creada para reunir a desarrolladores, innovadores y creadores digitales — desde desarrollo web y móvil hasta IA, ciberseguridad, cloud, DevOps y código abierto. Un ecosistema selectivo de 15 miembros centrado en la curiosidad, la innovación y el impacto real por encima del número de integrantes. Sobre todo construimos las herramientas que a nosotros mismos nos gustaría tener, y luego las compartimos con todos.",
         val_curiosity: "Curiosidad", val_innovation: "Innovación", val_excellence: "Excelencia", val_professionalism: "Profesionalismo", val_collaboration: "Colaboración", val_impact: "Impacto",
         connect_eyebrow: "Contacto", connect_h2: "Encuéntrame en línea", connect_lede: "WhatsApp es la forma más rápida de contactarme directamente.",
         go_whatsapp: "Escribir directamente", go_telegram: "Abrir chat", go_youtube: "Ver videos", go_github: "Ver repositorios",
@@ -1663,7 +1697,7 @@
         upcoming_desc1: "Detalhes ainda em segredo — a descrição completa e o link aparecerão aqui assim que estiver pronto.",
         upcoming_desc2: "Mesma história — em andamento agora. Volte em breve para a revelação.",
         syrix_eyebrow: "Comunidade", syrix_h2: "Cofundador na Syrix Vision Company", role_cofounder: "Cofundador",
-        syrix_desc: "Syrix Vision Company é uma comunidade tech moderna que cofundei com InconnuBoy, criada para reunir desenvolvedores, inovadores e criadores digitais — de desenvolvimento web e mobile a IA, cibersegurança, cloud, DevOps e código aberto. Um ecossistema seletivo de 15 membros, focado em curiosidade, inovação e impacto real em vez de quantidade.",
+        syrix_desc: "Syrix Vision Company é uma comunidade tech moderna que cofundei com InconnuBoy, criada para reunir desenvolvedores, inovadores e criadores digitais — de desenvolvimento web e mobile a IA, cibersegurança, cloud, DevOps e código aberto. Um ecossistema seletivo de 15 membros, focado em curiosidade, inovação e impacto real em vez de quantidade. Basicamente construímos as ferramentas que nós mesmos gostaríamos de ter, e depois abrimos para todo mundo.",
         val_curiosity: "Curiosidade", val_innovation: "Inovação", val_excellence: "Excelência", val_professionalism: "Profissionalismo", val_collaboration: "Colaboração", val_impact: "Impacto",
         connect_eyebrow: "Contato", connect_h2: "Me encontre online", connect_lede: "WhatsApp é a forma mais rápida de falar comigo diretamente.",
         go_whatsapp: "Chamar diretamente", go_telegram: "Abrir chat", go_youtube: "Ver vídeos", go_github: "Ver repositórios",
@@ -1692,7 +1726,7 @@
         upcoming_desc1: "Detail masih dirahasiakan — tulisan lengkap dan tautannya akan muncul di sini begitu siap dibagikan.",
         upcoming_desc2: "Ceritanya sama — sedang dikerjakan sekarang. Cek lagi nanti untuk pengungkapannya.",
         syrix_eyebrow: "Komunitas", syrix_h2: "Co-founder di Syrix Vision Company", role_cofounder: "Co-founder",
-        syrix_desc: "Syrix Vision Company adalah komunitas tech modern yang saya dirikan bersama InconnuBoy, dibangun untuk menyatukan developer, inovator, dan kreator digital — mulai dari pengembangan web dan mobile hingga AI, keamanan siber, cloud, DevOps, dan open source. Ekosistem selektif beranggotakan 15 orang yang berfokus pada rasa ingin tahu, inovasi, dan dampak nyata, bukan jumlah anggota.",
+        syrix_desc: "Syrix Vision Company adalah komunitas tech modern yang saya dirikan bersama InconnuBoy, dibangun untuk menyatukan developer, inovator, dan kreator digital — mulai dari pengembangan web dan mobile hingga AI, keamanan siber, cloud, DevOps, dan open source. Ekosistem selektif beranggotakan 15 orang yang berfokus pada rasa ingin tahu, inovasi, dan dampak nyata, bukan jumlah anggota. Kami kebanyakan membangun alat yang kami sendiri ingin punya, lalu membukanya untuk semua orang.",
         val_curiosity: "Rasa ingin tahu", val_innovation: "Inovasi", val_excellence: "Keunggulan", val_professionalism: "Profesionalisme", val_collaboration: "Kolaborasi", val_impact: "Dampak",
         connect_eyebrow: "Hubungi saya", connect_h2: "Temukan saya secara online", connect_lede: "WhatsApp adalah cara tercepat untuk menghubungi saya langsung.",
         go_whatsapp: "Kirim pesan langsung", go_telegram: "Buka chat", go_youtube: "Tonton video", go_github: "Lihat repository",
