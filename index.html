@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DsPrimis · Developer & Builder</title>
   <meta name="description" content="DsPrimis (Fritz) — Haitian developer building WhatsApp bots and websites. Co-founder of Syrix." />
+  <link rel="canonical" href="https://VOTRE-DOMAINE.vercel.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DsPrimis · Developer & Builder" />
+  <meta property="og:description" content="DsPrimis (Fritz) — Haitian developer building WhatsApp bots and websites. Co-founder of Syrix." />
+  <meta property="og:url" content="https://VOTRE-DOMAINE.vercel.app/" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="DsPrimis · Developer & Builder" />
+  <meta name="twitter:description" content="DsPrimis (Fritz) — Haitian developer building WhatsApp bots and websites. Co-founder of Syrix." />
+  <meta name="robots" content="index, follow" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -229,6 +238,84 @@
       border: 1px solid var(--border);
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-switch {
+      position: relative;
+    }
+
+    .lang-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .lang-btn:hover, .lang-btn.open {
+      color: var(--gold);
+      border-color: var(--gold);
+      transform: rotate(15deg);
+    }
+
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 6px;
+      min-width: 168px;
+      display: none;
+      flex-direction: column;
+      gap: 2px;
+      box-shadow: 0 16px 40px -16px rgba(0, 0, 0, .6);
+      z-index: 50;
+    }
+
+    .lang-menu.open {
+      display: flex;
+    }
+
+    .lang-menu button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      font-size: .82rem;
+      color: var(--muted);
+      text-align: left;
+      transition: background .15s ease, color .15s ease;
+    }
+
+    .lang-menu button span {
+      font-family: var(--font-mono);
+      font-size: .68rem;
+      color: var(--gold);
+      width: 22px;
+    }
+
+    .lang-menu button:hover {
+      background: var(--bg-soft);
+      color: var(--text);
+    }
+
+    .lang-menu button.active {
+      color: var(--text);
+      background: var(--bg-soft);
+    }
+
     @media (max-width: 760px) {
       .nav-links {
         display: none;
@@ -260,30 +347,21 @@
     .hero-place {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
-      font-family: var(--font-mono);
-      font-size: .72rem;
-      letter-spacing: .14em;
-      text-transform: uppercase;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-size: .8rem;
+      font-weight: 500;
       color: var(--muted);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 6px 14px;
+      border-radius: 99px;
       animation: fadeInUp .8s ease;
     }
 
-    .hero-place .dots {
-      display: inline-flex;
-      gap: 4px;
-    }
-
-    .hero-place .dots span {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-    }
-
-    .hero-place .dots span:last-child {
-      background: var(--accent);
-      opacity: .7;
+    .hero-place .flag {
+      font-size: .95rem;
+      line-height: 1;
     }
 
     .hero-kicker {
@@ -330,6 +408,21 @@
       color: var(--gold);
     }
 
+    .hero-underline {
+      width: 84px;
+      height: 4px;
+      border-radius: 4px;
+      margin-top: 18px;
+      background: linear-gradient(90deg, var(--gold), var(--accent), var(--red));
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: drawLine 1s cubic-bezier(.3, .8, .3, 1) .5s both;
+    }
+
+    @keyframes drawLine {
+      to { transform: scaleX(1); }
+    }
+
     .hero-role {
       font-family: var(--font-mono);
       font-size: .82rem;
@@ -353,57 +446,46 @@
       animation: fadeInUp .8s ease .2s both;
     }
 
-    .hero-term {
-      margin-top: 32px;
+    .hero-focus {
+      margin-top: 30px;
       max-width: 560px;
+      display: flex;
+      gap: 16px;
       border: 1px solid var(--border);
       border-radius: 16px;
-      background: rgba(21, 21, 29, .7);
-      backdrop-filter: blur(10px);
-      overflow: hidden;
+      background: var(--surface);
+      padding: 20px 22px;
       animation: fadeInUp .8s ease .26s both;
     }
 
-    .hero-term-bar {
-      display: flex;
-      gap: 6px;
-      padding: 13px 16px;
-      border-bottom: 1px solid var(--border);
+    .hero-focus-bar {
+      width: 3px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--gold), var(--accent), var(--red));
+      flex-shrink: 0;
     }
 
-    .hero-term-bar span {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--border-light);
-    }
-
-    .hero-term-body {
-      padding: 18px 20px 20px;
+    .hero-focus-label {
+      display: block;
       font-family: var(--font-mono);
-      font-size: .84rem;
-    }
-
-    .hero-term-line {
+      font-size: .68rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
       color: var(--gold);
-      display: flex;
-      gap: 10px;
-      align-items: center;
+      margin-bottom: 6px;
     }
 
-    .hero-term-line + .hero-term-out {
-      margin: 8px 0 16px;
-    }
-
-    .hero-term-out {
+    .hero-focus-text {
+      font-size: .92rem;
       color: var(--text);
-      line-height: 1.55;
+      line-height: 1.5;
     }
 
-    .hero-term-pills {
+    .hero-focus-meta {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
+      margin-top: 14px;
     }
 
     .hero-term-pill {
@@ -1216,15 +1298,29 @@
         DsPrimis
       </div>
       <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#stack">Stack</a>
-        <a href="#projects">Projects</a>
-        <a href="#syrix">Syrix</a>
-        <a href="#connect">Connect</a>
+        <a href="#about" data-i18n="nav_about">About</a>
+        <a href="#stack" data-i18n="nav_stack">Stack</a>
+        <a href="#projects" data-i18n="nav_projects">Projects</a>
+        <a href="#syrix" data-i18n="nav_syrix">Syrix</a>
+        <a href="#connect" data-i18n="nav_connect">Connect</a>
       </div>
-      <div class="nav-clock" id="nav-clock">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        <span id="nav-clock-time">--:--</span>
+      <div class="nav-right">
+        <div class="nav-clock" id="nav-clock">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="nav-clock-time">--:--</span>
+        </div>
+        <div class="lang-switch">
+          <button class="lang-btn" id="lang-btn" aria-label="Change language" aria-expanded="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </button>
+          <div class="lang-menu" id="lang-menu">
+            <button data-lang="en"><span>EN</span> English</button>
+            <button data-lang="fr"><span>FR</span> Français</button>
+            <button data-lang="es"><span>ES</span> Español</button>
+            <button data-lang="pt"><span>PT</span> Português</button>
+            <button data-lang="id"><span>ID</span> Bahasa Indonesia</button>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -1233,29 +1329,23 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-top reveal">
-        <div class="hero-place">
-          <span class="dots"><span></span><span></span></span>
-          Haiti
-        </div>
-        <div class="hero-kicker"><span class="dot"></span>Available for new projects</div>
+        <div class="hero-place"><span class="flag">🇭🇹</span> <span data-i18n="hero_place">Haiti</span></div>
+        <div class="hero-kicker"><span class="dot"></span><span data-i18n="hero_kicker">Available for new projects</span></div>
       </div>
 
-      <h1 class="reveal">DsPrimis<span class="accent">.</span></h1>
-      <p class="hero-role reveal">WhatsApp bot developer<span class="sep">•</span>Full stack<span class="sep">•</span>Co-founder, Syrix</p>
-      <p class="hero-sub reveal">I'm Fritz, a self-taught developer from Haiti. I build WhatsApp bots, automations, and the web platforms that connect to them.</p>
+      <h1 class="reveal">DsPrimis</h1>
+      <div class="hero-underline reveal"></div>
+      <p class="hero-role reveal"><span data-i18n="hero_role1">WhatsApp bot developer</span><span class="sep">•</span><span data-i18n="hero_role2">Full stack</span><span class="sep">•</span><span data-i18n="hero_role3">Co-founder, Syrix</span></p>
+      <p class="hero-sub reveal" data-i18n="hero_sub">I'm Fritz, a self-taught developer from Haiti. I build WhatsApp bots, automations, and the web platforms that connect to them.</p>
 
-      <div class="hero-term reveal">
-        <div class="hero-term-bar"><span></span><span></span><span></span></div>
-        <div class="hero-term-body">
-          <div class="hero-term-line">$ whoami</div>
-          <div class="hero-term-out">Fritz — I build tools people actually keep using inside WhatsApp.</div>
-          <div class="hero-term-line">$ status</div>
-          <div class="hero-term-out">
-            <div class="hero-term-pills">
-              <span class="hero-term-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="nav-clock-time-hero">--:--</span></span>
-              <span class="hero-term-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg>open to work</span>
-            </div>
-            <span class="term-cursor"></span>
+      <div class="hero-focus reveal">
+        <div class="hero-focus-bar"></div>
+        <div>
+          <span class="hero-focus-label" data-i18n="hero_focus_label">Right now</span>
+          <p class="hero-focus-text" data-i18n="hero_focus_text">Shipping features for Squichy MD, full-time on WhatsApp tooling.</p>
+          <div class="hero-focus-meta">
+            <span class="hero-term-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span id="nav-clock-time-hero">--:--</span></span>
+            <span class="hero-term-pill"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="hero_pill_status">open to work</span></span>
           </div>
         </div>
       </div>
@@ -1263,16 +1353,16 @@
       <div class="hero-actions reveal">
         <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          Message me
+          <span data-i18n="btn_message">Message me</span>
         </a>
-        <a class="btn btn-ghost" href="#projects">See my work <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg></a>
+        <a class="btn btn-ghost" href="#projects"><span data-i18n="btn_work">See my work</span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="9 18 15 12 9 6"/></svg></a>
       </div>
 
       <div class="stat-strip">
-        <div class="stat-cell"><div class="stat-num">2024</div><div class="stat-lbl">coding since</div></div>
-        <div class="stat-cell"><div class="stat-num">18</div><div class="stat-lbl">years old</div></div>
-        <div class="stat-cell"><div class="stat-num">Haiti</div><div class="stat-lbl">based in</div></div>
-        <div class="stat-cell"><div class="stat-num">Syrix</div><div class="stat-lbl">co-founder at</div></div>
+        <div class="stat-cell"><div class="stat-num">2024</div><div class="stat-lbl" data-i18n="stat_coding">coding since</div></div>
+        <div class="stat-cell"><div class="stat-num">18</div><div class="stat-lbl" data-i18n="stat_years">years old</div></div>
+        <div class="stat-cell"><div class="stat-num">Haiti</div><div class="stat-lbl" data-i18n="stat_based">based in</div></div>
+        <div class="stat-cell"><div class="stat-num">Syrix</div><div class="stat-lbl" data-i18n="stat_cofounder">co-founder at</div></div>
       </div>
     </div>
   </section>
@@ -1281,25 +1371,25 @@
   <!-- about -->
   <section id="about">
     <div class="wrap">
-      <div class="eyebrow reveal">About</div>
-      <h2 class="reveal">The person behind DsPrimis</h2>
+      <div class="eyebrow reveal" data-i18n="about_eyebrow">About</div>
+      <h2 class="reveal" data-i18n="about_h2">The person behind DsPrimis</h2>
       <div class="about-grid">
         <div class="about-text reveal">
-          <p>My name is <b>Fritz</b>, but most people know me as <b>DsPrimis</b>. I'm from <b>Haiti</b>, born <b>November 5, 2007</b>, and I picked up coding seriously in <b>2024</b> — no computer science degree, no bootcamp. Just a lot of late nights opening an editor, breaking things, and figuring out why they broke until it started making sense.</p>
-          <p>My work is almost entirely centered on <b>WhatsApp</b> — it's where everyone already spends their time, so it's the platform where a small tool can make the biggest real difference. Bots that search information without leaving the chat, protect a group from spam and unwanted links, or keep a paired number safe. Small improvements to something people already use every day.</p>
-          <p>Alongside my own projects, I co-founded <b>Syrix</b>, a selective community built to bring developers, innovators and digital creators together under one roof.</p>
+          <p data-i18n="about_p1">My name is <b>Fritz</b>, but most people know me as <b>DsPrimis</b>. I'm from <b>Haiti</b>, born <b>November 5, 2007</b>, and I picked up coding seriously in <b>2024</b> — no computer science degree, no bootcamp. Just a lot of late nights opening an editor, breaking things, and figuring out why they broke until it started making sense.</p>
+          <p data-i18n="about_p2">My work is almost entirely centered on <b>WhatsApp</b> — it's where everyone already spends their time, so it's the platform where a small tool can make the biggest real difference. Bots that search information without leaving the chat, protect a group from spam and unwanted links, or keep a paired number safe. Small improvements to something people already use every day.</p>
+          <p data-i18n="about_p3">Alongside my own projects, I co-founded <b>Syrix</b>, a selective community built to bring developers, innovators and digital creators together under one roof.</p>
         </div>
         <div class="info-card reveal">
           <div class="info-card-top">
             <div class="info-avatar">DP</div>
-            <div><div class="n">DsPrimis</div><div class="s">Web Developer</div></div>
+            <div><div class="n">DsPrimis</div><div class="s" data-i18n="info_role">Web Developer</div></div>
           </div>
           <div class="info-rows">
-            <div class="info-row"><span class="k">Real name</span><span class="v">Fritz</span></div>
-            <div class="info-row"><span class="k">Born</span><span class="v">Nov 5, 2007</span></div>
-            <div class="info-row"><span class="k">Location</span><span class="v">Haiti</span></div>
-            <div class="info-row"><span class="k">Coding since</span><span class="v">2024</span></div>
-            <div class="info-row"><span class="k">Company</span><span class="v">Co-founder, Syrix</span></div>
+            <div class="info-row"><span class="k" data-i18n="info_k_name">Real name</span><span class="v">Fritz</span></div>
+            <div class="info-row"><span class="k" data-i18n="info_k_born">Born</span><span class="v">Nov 5, 2007</span></div>
+            <div class="info-row"><span class="k" data-i18n="info_k_location">Location</span><span class="v" data-i18n="hero_place">Haiti</span></div>
+            <div class="info-row"><span class="k" data-i18n="info_k_coding">Coding since</span><span class="v">2024</span></div>
+            <div class="info-row"><span class="k" data-i18n="info_k_company">Company</span><span class="v" data-i18n="info_v_company">Co-founder, Syrix</span></div>
             <div class="info-row"><span class="k">GitHub</span><a class="v" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener">@DEVPRIMIS</a></div>
           </div>
         </div>
@@ -1310,9 +1400,9 @@
   <!-- stack -->
   <section id="stack">
     <div class="wrap">
-      <div class="eyebrow reveal">Tech stack</div>
-      <h2 class="reveal">Tools I build with</h2>
-      <p class="lede reveal">JavaScript is home base for pretty much everything I ship. Python comes out for scripting and quick logic that doesn't need a full server around it.</p>
+      <div class="eyebrow reveal" data-i18n="stack_eyebrow">Tech stack</div>
+      <h2 class="reveal" data-i18n="stack_h2">Tools I build with</h2>
+      <p class="lede reveal" data-i18n="stack_lede">JavaScript is home base for pretty much everything I ship. Python comes out for scripting and quick logic that doesn't need a full server around it.</p>
       <div class="stack-grid">
         <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" loading="lazy"></div><div class="stack-name">JavaScript</div></div>
         <div class="stack-card reveal"><div class="stack-logo"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" loading="lazy"></div><div class="stack-name">TypeScript</div></div>
@@ -1336,23 +1426,23 @@
   <!-- projects -->
   <section id="projects">
     <div class="wrap">
-      <div class="eyebrow reveal">Featured work</div>
-      <h2 class="reveal">Projects worth showing</h2>
-      <p class="lede reveal">One live and actively maintained right now — two more already in progress.</p>
+      <div class="eyebrow reveal" data-i18n="projects_eyebrow">Featured work</div>
+      <h2 class="reveal" data-i18n="projects_h2">Projects worth showing</h2>
+      <p class="lede reveal" data-i18n="projects_lede">One live and actively maintained right now — two more already in progress.</p>
 
       <div class="project-card reveal">
         <div class="project-media"><span>MD</span></div>
         <div class="project-body">
-          <div class="project-tag-row"><span class="tag">WhatsApp Bot</span><span class="tag">Node.js</span><span class="tag">Live</span></div>
+          <div class="project-tag-row"><span class="tag">WhatsApp Bot</span><span class="tag">Node.js</span><span class="tag" data-i18n="tag_live">Live</span></div>
           <div class="project-title">Squichy MD</div>
-          <p class="project-desc">An automated WhatsApp bot built to help people use the platform more safely and productively — searching information online without leaving the chat, protecting groups from spam and unwanted links, and protecting a user's own paired number. Pairs directly through the web, no extra app required.</p>
-          <a class="project-link" href="https://squichy-mds.vercel.app" target="_blank" rel="noopener">Visit squichy-mds.vercel.app <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+          <p class="project-desc" data-i18n="proj_desc">An automated WhatsApp bot built to help people use the platform more safely and productively — searching information online without leaving the chat, protecting groups from spam and unwanted links, and protecting a user's own paired number. Pairs directly through the web, no extra app required.</p>
+          <a class="project-link" href="https://squichy-mds.vercel.app" target="_blank" rel="noopener"><span data-i18n="visit_prefix">Visit</span> squichy-mds.vercel.app <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
         </div>
       </div>
 
       <div class="upcoming-grid">
-        <div class="upcoming-card reveal"><span class="upcoming-badge">Coming soon</span><span class="upcoming-num">01</span><div class="upcoming-title">Untitled project</div><div class="upcoming-desc">Details still under wraps — full write-up and link will land here the moment it's ready to share.</div></div>
-        <div class="upcoming-card reveal"><span class="upcoming-badge">Coming soon</span><span class="upcoming-num">02</span><div class="upcoming-title">Untitled project</div><div class="upcoming-desc">Same story — in progress right now. Check back soon for the reveal.</div></div>
+        <div class="upcoming-card reveal"><span class="upcoming-badge" data-i18n="upcoming_badge">Coming soon</span><span class="upcoming-num">01</span><div class="upcoming-title" data-i18n="upcoming_title">Untitled project</div><div class="upcoming-desc" data-i18n="upcoming_desc1">Details still under wraps — full write-up and link will land here the moment it's ready to share.</div></div>
+        <div class="upcoming-card reveal"><span class="upcoming-badge" data-i18n="upcoming_badge">Coming soon</span><span class="upcoming-num">02</span><div class="upcoming-title" data-i18n="upcoming_title">Untitled project</div><div class="upcoming-desc" data-i18n="upcoming_desc2">Same story — in progress right now. Check back soon for the reveal.</div></div>
       </div>
     </div>
   </section>
@@ -1360,20 +1450,20 @@
   <!-- syrix -->
   <section id="syrix">
     <div class="wrap">
-      <div class="eyebrow reveal">Community</div>
-      <h2 class="reveal">Co-founder at Syrix</h2>
+      <div class="eyebrow reveal" data-i18n="syrix_eyebrow">Community</div>
+      <h2 class="reveal" data-i18n="syrix_h2">Co-founder at Syrix</h2>
       <div class="syrix-card reveal">
         <div class="syrix-top">
           <div class="syrix-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <div><div class="syrix-name">Syrix</div><span class="syrix-role">Co-founder</span></div>
+          <div><div class="syrix-name">Syrix</div><span class="syrix-role" data-i18n="role_cofounder">Co-founder</span></div>
         </div>
-        <p class="syrix-desc">Syrix is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount.</p>
-        <div class="syrix-values"><span class="syrix-value">Curiosity</span><span class="syrix-value">Innovation</span><span class="syrix-value">Excellence</span><span class="syrix-value">Professionalism</span><span class="syrix-value">Collaboration</span><span class="syrix-value">Impact</span></div>
+        <p class="syrix-desc" data-i18n="syrix_desc">Syrix is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount.</p>
+        <div class="syrix-values"><span class="syrix-value" data-i18n="val_curiosity">Curiosity</span><span class="syrix-value" data-i18n="val_innovation">Innovation</span><span class="syrix-value" data-i18n="val_excellence">Excellence</span><span class="syrix-value" data-i18n="val_professionalism">Professionalism</span><span class="syrix-value" data-i18n="val_collaboration">Collaboration</span><span class="syrix-value" data-i18n="val_impact">Impact</span></div>
         <div class="syrix-cofounders">
-          <div class="cofounder"><div class="cofounder-avatar">IB</div><div><div class="cofounder-name">InconnuBoy</div><div class="cofounder-role">Co-founder</div></div></div>
-          <div class="cofounder"><div class="cofounder-avatar">DP</div><div><div class="cofounder-name">DsPrimis</div><div class="cofounder-role">Co-founder</div></div></div>
+          <div class="cofounder"><div class="cofounder-avatar">IB</div><div><div class="cofounder-name">InconnuBoy</div><div class="cofounder-role" data-i18n="role_cofounder">Co-founder</div></div></div>
+          <div class="cofounder"><div class="cofounder-avatar">DP</div><div><div class="cofounder-name">DsPrimis</div><div class="cofounder-role" data-i18n="role_cofounder">Co-founder</div></div></div>
         </div>
-        <a class="project-link" href="https://syrixcompany.zone.id" target="_blank" rel="noopener">Visit syrixcompany.zone.id <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
+        <a class="project-link" href="https://syrixcompany.zone.id" target="_blank" rel="noopener"><span data-i18n="visit_prefix">Visit</span> syrixcompany.zone.id <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></a>
       </div>
     </div>
   </section>
@@ -1381,14 +1471,14 @@
   <!-- connect -->
   <section id="connect">
     <div class="wrap">
-      <div class="eyebrow reveal">Get in touch</div>
-      <h2 class="reveal">Find me online</h2>
-      <p class="lede reveal">WhatsApp is the fastest way to reach me directly.</p>
+      <div class="eyebrow reveal" data-i18n="connect_eyebrow">Get in touch</div>
+      <h2 class="reveal" data-i18n="connect_h2">Find me online</h2>
+      <p class="lede reveal" data-i18n="connect_lede">WhatsApp is the fastest way to reach me directly.</p>
       <div class="contact-grid">
-        <a class="contact-card reveal" href="https://wa.me/50956880231" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="contact-name">WhatsApp</div><div class="contact-sub">+509 5688 0231</div><div class="contact-go">Message directly <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-        <a class="contact-card reveal" href="https://t.me/dsprimis" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></div><div class="contact-name">Telegram</div><div class="contact-sub">t.me/dsprimis</div><div class="contact-go">Open chat <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-        <a class="contact-card reveal" href="https://www.youtube.com/@dsprimis" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.5 6.2a2.8 2.8 0 0 0-2-2C18.9 3.7 12 3.7 12 3.7s-6.9 0-8.5.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 5.8 2.8 2.8 0 0 0 2 2c1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-5.8z"/><polygon points="9.8 15.3 15.8 12 9.8 8.7"/></svg></div><div class="contact-name">YouTube</div><div class="contact-sub">@dsprimis</div><div class="contact-go">Watch videos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
-        <a class="contact-card reveal" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><div class="contact-name">GitHub</div><div class="contact-sub">@DEVPRIMIS</div><div class="contact-go">Browse repos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+        <a class="contact-card reveal" href="https://wa.me/50956880231" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></div><div class="contact-name">WhatsApp</div><div class="contact-sub">+509 5688 0231</div><div class="contact-go" data-i18n="go_whatsapp">Message directly <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+        <a class="contact-card reveal" href="https://t.me/dsprimis" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg></div><div class="contact-name">Telegram</div><div class="contact-sub">t.me/dsprimis</div><div class="contact-go" data-i18n="go_telegram">Open chat <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+        <a class="contact-card reveal" href="https://www.youtube.com/@dsprimis" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.5 6.2a2.8 2.8 0 0 0-2-2C18.9 3.7 12 3.7 12 3.7s-6.9 0-8.5.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1 12a29 29 0 0 0 .5 5.8 2.8 2.8 0 0 0 2 2c1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5a2.8 2.8 0 0 0 2-2A29 29 0 0 0 23 12a29 29 0 0 0-.5-5.8z"/><polygon points="9.8 15.3 15.8 12 9.8 8.7"/></svg></div><div class="contact-name">YouTube</div><div class="contact-sub">@dsprimis</div><div class="contact-go" data-i18n="go_youtube">Watch videos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
+        <a class="contact-card reveal" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener"><div class="contact-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div><div class="contact-name">GitHub</div><div class="contact-sub">@DEVPRIMIS</div><div class="contact-go" data-i18n="go_github">Browse repos <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></div></a>
       </div>
     </div>
   </section>
@@ -1396,11 +1486,11 @@
   <!-- footer CTA -->
   <div class="footer-cta">
     <div class="wrap">
-      <h2 class="reveal">Got a project in mind?</h2>
-      <p class="reveal">Open to new collaborations, freelance work, and interesting builds — wherever you are.</p>
+      <h2 class="reveal" data-i18n="footer_h2">Got a project in mind?</h2>
+      <p class="reveal" data-i18n="footer_p">Open to new collaborations, freelance work, and interesting builds — wherever you are.</p>
       <div class="footer-actions reveal">
-        <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Message me on WhatsApp</a>
-        <a class="btn btn-ghost" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener">See all projects</a>
+        <a class="btn btn-primary" href="https://wa.me/50956880231" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> <span data-i18n="footer_btn1">Message me on WhatsApp</span></a>
+        <a class="btn btn-ghost" href="https://github.com/DEVPRIMIS" target="_blank" rel="noopener"><span data-i18n="footer_btn2">See all projects</span></a>
       </div>
     </div>
   </div>
@@ -1414,6 +1504,198 @@
   </div>
 
   <script>
+    // language switcher
+    const translations = {
+      en: {
+        nav_about: "About", nav_stack: "Stack", nav_projects: "Projects", nav_syrix: "Syrix", nav_connect: "Connect",
+        hero_place: "Haiti", hero_kicker: "Available for new projects",
+        hero_role1: "WhatsApp bot developer", hero_role2: "Full stack", hero_role3: "Co-founder, Syrix",
+        hero_sub: "I'm Fritz, a self-taught developer from Haiti. I build WhatsApp bots, automations, and the web platforms that connect to them.",
+        hero_focus_label: "Right now", hero_focus_text: "Shipping features for Squichy MD, full-time on WhatsApp tooling.",
+        hero_pill_status: "open to work", btn_message: "Message me", btn_work: "See my work",
+        stat_coding: "coding since", stat_years: "years old", stat_based: "based in", stat_cofounder: "co-founder at",
+        about_eyebrow: "About", about_h2: "The person behind DsPrimis",
+        about_p1: "My name is <b>Fritz</b>, but most people know me as <b>DsPrimis</b>. I'm from <b>Haiti</b>, born <b>November 5, 2007</b>, and I picked up coding seriously in <b>2024</b> — no computer science degree, no bootcamp. Just a lot of late nights opening an editor, breaking things, and figuring out why they broke until it started making sense.",
+        about_p2: "My work is almost entirely centered on <b>WhatsApp</b> — it's where everyone already spends their time, so it's the platform where a small tool can make the biggest real difference. Bots that search information without leaving the chat, protect a group from spam and unwanted links, or keep a paired number safe. Small improvements to something people already use every day.",
+        about_p3: "Alongside my own projects, I co-founded <b>Syrix</b>, a selective community built to bring developers, innovators and digital creators together under one roof.",
+        info_role: "Web Developer", info_k_name: "Real name", info_k_born: "Born", info_k_location: "Location", info_k_coding: "Coding since", info_k_company: "Company", info_v_company: "Co-founder, Syrix",
+        stack_eyebrow: "Tech stack", stack_h2: "Tools I build with",
+        stack_lede: "JavaScript is home base for pretty much everything I ship. Python comes out for scripting and quick logic that doesn't need a full server around it.",
+        projects_eyebrow: "Featured work", projects_h2: "Projects worth showing", projects_lede: "One live and actively maintained right now — two more already in progress.",
+        tag_live: "Live", visit_prefix: "Visit",
+        proj_desc: "An automated WhatsApp bot built to help people use the platform more safely and productively — searching information online without leaving the chat, protecting groups from spam and unwanted links, and protecting a user's own paired number. Pairs directly through the web, no extra app required.",
+        upcoming_badge: "Coming soon", upcoming_title: "Untitled project",
+        upcoming_desc1: "Details still under wraps — full write-up and link will land here the moment it's ready to share.",
+        upcoming_desc2: "Same story — in progress right now. Check back soon for the reveal.",
+        syrix_eyebrow: "Community", syrix_h2: "Co-founder at Syrix", role_cofounder: "Co-founder",
+        syrix_desc: "Syrix is a modern tech community I co-founded with InconnuBoy, built to bring developers, innovators and digital creators together — from web and mobile development to AI, cybersecurity, cloud, DevOps and open source. It's a selective, 15-member ecosystem centered on curiosity, innovation and real, shipped impact rather than headcount.",
+        val_curiosity: "Curiosity", val_innovation: "Innovation", val_excellence: "Excellence", val_professionalism: "Professionalism", val_collaboration: "Collaboration", val_impact: "Impact",
+        connect_eyebrow: "Get in touch", connect_h2: "Find me online", connect_lede: "WhatsApp is the fastest way to reach me directly.",
+        go_whatsapp: "Message directly", go_telegram: "Open chat", go_youtube: "Watch videos", go_github: "Browse repos",
+        footer_h2: "Got a project in mind?", footer_p: "Open to new collaborations, freelance work, and interesting builds — wherever you are.",
+        footer_btn1: "Message me on WhatsApp", footer_btn2: "See all projects"
+      },
+      fr: {
+        nav_about: "À propos", nav_stack: "Stack", nav_projects: "Projets", nav_syrix: "Syrix", nav_connect: "Contact",
+        hero_place: "Haïti", hero_kicker: "Disponible pour de nouveaux projets",
+        hero_role1: "Développeur de bots WhatsApp", hero_role2: "Full stack", hero_role3: "Co-fondateur, Syrix",
+        hero_sub: "Je suis Fritz, développeur autodidacte originaire d'Haïti. Je crée des bots WhatsApp, des automatisations, et les plateformes web qui s'y connectent.",
+        hero_focus_label: "En ce moment", hero_focus_text: "Je développe des fonctionnalités pour Squichy MD, à temps plein sur les outils WhatsApp.",
+        hero_pill_status: "disponible", btn_message: "M'écrire", btn_work: "Voir mes projets",
+        stat_coding: "code depuis", stat_years: "ans", stat_based: "basé en", stat_cofounder: "co-fondateur chez",
+        about_eyebrow: "À propos", about_h2: "La personne derrière DsPrimis",
+        about_p1: "Je m'appelle <b>Fritz</b>, mais la plupart me connaissent sous le nom de <b>DsPrimis</b>. Je viens d'<b>Haïti</b>, né le <b>5 novembre 2007</b>, et je me suis mis au code sérieusement en <b>2024</b> — pas de diplôme en informatique, pas de bootcamp. Juste beaucoup de nuits passées à ouvrir un éditeur, casser des choses, et comprendre pourquoi jusqu'à ce que ça fasse sens.",
+        about_p2: "Mon travail est presque entièrement centré sur <b>WhatsApp</b> — c'est là que tout le monde passe déjà son temps, donc c'est la plateforme où un petit outil peut vraiment changer les choses. Des bots qui cherchent des infos sans quitter la conversation, protègent un groupe du spam et des liens indésirables, ou sécurisent un numéro appairé. De petites améliorations à quelque chose que les gens utilisent déjà tous les jours.",
+        about_p3: "En plus de mes propres projets, j'ai co-fondé <b>Syrix</b>, une communauté sélective réunissant développeurs, innovateurs et créateurs numériques sous un même toit.",
+        info_role: "Développeur Web", info_k_name: "Vrai nom", info_k_born: "Né le", info_k_location: "Localisation", info_k_coding: "Code depuis", info_k_company: "Entreprise", info_v_company: "Co-fondateur, Syrix",
+        stack_eyebrow: "Stack technique", stack_h2: "Les outils que j'utilise",
+        stack_lede: "JavaScript est ma base pour à peu près tout ce que je crée. Python sort pour du scripting et de la logique rapide qui n'a pas besoin d'un serveur complet.",
+        projects_eyebrow: "Projets phares", projects_h2: "Des projets qui valent le coup d'œil", projects_lede: "Un projet en ligne et activement maintenu — deux autres déjà en cours.",
+        tag_live: "En ligne", visit_prefix: "Visiter",
+        proj_desc: "Un bot WhatsApp automatisé conçu pour aider les gens à utiliser la plateforme plus sûrement et efficacement — recherche d'informations sans quitter la conversation, protection des groupes contre le spam et les liens indésirables, et protection du numéro appairé de l'utilisateur. Appairage direct via le web, aucune application supplémentaire requise.",
+        upcoming_badge: "Bientôt disponible", upcoming_title: "Projet sans titre",
+        upcoming_desc1: "Détails encore secrets — la présentation complète et le lien arriveront ici dès que ce sera prêt à partager.",
+        upcoming_desc2: "Même histoire — en cours actuellement. Reviens bientôt pour la révélation.",
+        syrix_eyebrow: "Communauté", syrix_h2: "Co-fondateur chez Syrix", role_cofounder: "Co-fondateur",
+        syrix_desc: "Syrix est une communauté tech moderne que j'ai co-fondée avec InconnuBoy, pensée pour réunir développeurs, innovateurs et créateurs numériques — du développement web et mobile à l'IA, la cybersécurité, le cloud, le DevOps et l'open source. Un écosystème sélectif de 15 membres, centré sur la curiosité, l'innovation et un impact réel plutôt que sur le nombre.",
+        val_curiosity: "Curiosité", val_innovation: "Innovation", val_excellence: "Excellence", val_professionalism: "Professionnalisme", val_collaboration: "Collaboration", val_impact: "Impact",
+        connect_eyebrow: "Contact", connect_h2: "Me trouver en ligne", connect_lede: "WhatsApp est le moyen le plus rapide de me joindre directement.",
+        go_whatsapp: "Écrire directement", go_telegram: "Ouvrir la discussion", go_youtube: "Voir les vidéos", go_github: "Voir les dépôts",
+        footer_h2: "Un projet en tête ?", footer_p: "Ouvert aux nouvelles collaborations, au freelance, et aux projets intéressants — où que tu sois.",
+        footer_btn1: "M'écrire sur WhatsApp", footer_btn2: "Voir tous les projets"
+      },
+      es: {
+        nav_about: "Sobre mí", nav_stack: "Stack", nav_projects: "Proyectos", nav_syrix: "Syrix", nav_connect: "Contacto",
+        hero_place: "Haití", hero_kicker: "Disponible para nuevos proyectos",
+        hero_role1: "Desarrollador de bots de WhatsApp", hero_role2: "Full stack", hero_role3: "Cofundador, Syrix",
+        hero_sub: "Soy Fritz, desarrollador autodidacta de Haití. Creo bots de WhatsApp, automatizaciones, y las plataformas web que se conectan a ellos.",
+        hero_focus_label: "Ahora mismo", hero_focus_text: "Desarrollando funciones para Squichy MD, a tiempo completo en herramientas de WhatsApp.",
+        hero_pill_status: "disponible", btn_message: "Escríbeme", btn_work: "Ver mi trabajo",
+        stat_coding: "programando desde", stat_years: "años", stat_based: "ubicado en", stat_cofounder: "cofundador en",
+        about_eyebrow: "Sobre mí", about_h2: "La persona detrás de DsPrimis",
+        about_p1: "Me llamo <b>Fritz</b>, pero la mayoría me conoce como <b>DsPrimis</b>. Soy de <b>Haití</b>, nacido el <b>5 de noviembre de 2007</b>, y empecé a programar en serio en <b>2024</b> — sin título en informática, sin bootcamp. Solo muchas noches abriendo un editor, rompiendo cosas y descubriendo por qué se rompían hasta que todo empezó a tener sentido.",
+        about_p2: "Mi trabajo está casi completamente centrado en <b>WhatsApp</b> — es donde todos ya pasan su tiempo, así que es la plataforma donde una pequeña herramienta puede marcar la mayor diferencia real. Bots que buscan información sin salir del chat, protegen un grupo del spam y enlaces no deseados, o mantienen seguro un número vinculado. Pequeñas mejoras a algo que la gente ya usa todos los días.",
+        about_p3: "Además de mis propios proyectos, cofundé <b>Syrix</b>, una comunidad selectiva creada para reunir a desarrolladores, innovadores y creadores digitales bajo un mismo techo.",
+        info_role: "Desarrollador Web", info_k_name: "Nombre real", info_k_born: "Nacimiento", info_k_location: "Ubicación", info_k_coding: "Programando desde", info_k_company: "Empresa", info_v_company: "Cofundador, Syrix",
+        stack_eyebrow: "Stack técnico", stack_h2: "Herramientas que uso",
+        stack_lede: "JavaScript es mi base para casi todo lo que creo. Python aparece para scripting y lógica rápida que no necesita un servidor completo.",
+        projects_eyebrow: "Trabajo destacado", projects_h2: "Proyectos que vale la pena mostrar", projects_lede: "Uno en producción y mantenido activamente — dos más ya en camino.",
+        tag_live: "Activo", visit_prefix: "Visitar",
+        proj_desc: "Un bot de WhatsApp automatizado creado para ayudar a la gente a usar la plataforma de forma más segura y productiva — buscando información sin salir del chat, protegiendo grupos del spam y enlaces no deseados, y protegiendo el número vinculado del usuario. Se vincula directamente vía web, sin necesidad de una app adicional.",
+        upcoming_badge: "Próximamente", upcoming_title: "Proyecto sin título",
+        upcoming_desc1: "Detalles aún bajo llave — la descripción completa y el enlace aparecerán aquí en cuanto estén listos.",
+        upcoming_desc2: "La misma historia — en desarrollo ahora mismo. Vuelve pronto para la revelación.",
+        syrix_eyebrow: "Comunidad", syrix_h2: "Cofundador en Syrix", role_cofounder: "Cofundador",
+        syrix_desc: "Syrix es una comunidad tech moderna que cofundé con InconnuBoy, creada para reunir a desarrolladores, innovadores y creadores digitales — desde desarrollo web y móvil hasta IA, ciberseguridad, cloud, DevOps y código abierto. Un ecosistema selectivo de 15 miembros centrado en la curiosidad, la innovación y el impacto real por encima del número de integrantes.",
+        val_curiosity: "Curiosidad", val_innovation: "Innovación", val_excellence: "Excelencia", val_professionalism: "Profesionalismo", val_collaboration: "Colaboración", val_impact: "Impacto",
+        connect_eyebrow: "Contacto", connect_h2: "Encuéntrame en línea", connect_lede: "WhatsApp es la forma más rápida de contactarme directamente.",
+        go_whatsapp: "Escribir directamente", go_telegram: "Abrir chat", go_youtube: "Ver videos", go_github: "Ver repositorios",
+        footer_h2: "¿Tienes un proyecto en mente?", footer_p: "Abierto a nuevas colaboraciones, trabajo freelance y proyectos interesantes — estés donde estés.",
+        footer_btn1: "Escríbeme por WhatsApp", footer_btn2: "Ver todos los proyectos"
+      },
+      pt: {
+        nav_about: "Sobre", nav_stack: "Stack", nav_projects: "Projetos", nav_syrix: "Syrix", nav_connect: "Contato",
+        hero_place: "Haiti", hero_kicker: "Disponível para novos projetos",
+        hero_role1: "Desenvolvedor de bots de WhatsApp", hero_role2: "Full stack", hero_role3: "Cofundador, Syrix",
+        hero_sub: "Sou o Fritz, desenvolvedor autodidata do Haiti. Eu crio bots de WhatsApp, automações, e as plataformas web que se conectam a eles.",
+        hero_focus_label: "Agora mesmo", hero_focus_text: "Desenvolvendo funcionalidades para o Squichy MD, em tempo integral em ferramentas de WhatsApp.",
+        hero_pill_status: "disponível", btn_message: "Fale comigo", btn_work: "Ver meu trabalho",
+        stat_coding: "programando desde", stat_years: "anos", stat_based: "baseado em", stat_cofounder: "cofundador em",
+        about_eyebrow: "Sobre", about_h2: "A pessoa por trás do DsPrimis",
+        about_p1: "Meu nome é <b>Fritz</b>, mas a maioria me conhece como <b>DsPrimis</b>. Sou do <b>Haiti</b>, nascido em <b>5 de novembro de 2007</b>, e comecei a programar sério em <b>2024</b> — sem faculdade de ciência da computação, sem bootcamp. Só muitas noites abrindo um editor, quebrando coisas e descobrindo por que quebravam até fazer sentido.",
+        about_p2: "Meu trabalho é quase totalmente focado em <b>WhatsApp</b> — é onde todo mundo já passa o tempo, então é a plataforma onde uma pequena ferramenta pode fazer a maior diferença real. Bots que buscam informação sem sair do chat, protegem um grupo de spam e links indesejados, ou mantêm um número pareado seguro. Pequenas melhorias em algo que as pessoas já usam todo dia.",
+        about_p3: "Além dos meus próprios projetos, cofundei a <b>Syrix</b>, uma comunidade seletiva criada para reunir desenvolvedores, inovadores e criadores digitais sob o mesmo teto.",
+        info_role: "Desenvolvedor Web", info_k_name: "Nome real", info_k_born: "Nascimento", info_k_location: "Localização", info_k_coding: "Programando desde", info_k_company: "Empresa", info_v_company: "Cofundador, Syrix",
+        stack_eyebrow: "Stack técnico", stack_h2: "Ferramentas que uso",
+        stack_lede: "JavaScript é a base de praticamente tudo que eu crio. Python aparece para scripts e lógica rápida que não precisa de um servidor completo.",
+        projects_eyebrow: "Trabalho em destaque", projects_h2: "Projetos que valem a pena mostrar", projects_lede: "Um no ar e mantido ativamente agora — outros dois já em andamento.",
+        tag_live: "No ar", visit_prefix: "Visitar",
+        proj_desc: "Um bot de WhatsApp automatizado criado para ajudar as pessoas a usar a plataforma de forma mais segura e produtiva — buscando informações sem sair do chat, protegendo grupos contra spam e links indesejados, e protegendo o número pareado do usuário. Pareamento direto pela web, sem app extra necessário.",
+        upcoming_badge: "Em breve", upcoming_title: "Projeto sem título",
+        upcoming_desc1: "Detalhes ainda em segredo — a descrição completa e o link aparecerão aqui assim que estiver pronto.",
+        upcoming_desc2: "Mesma história — em andamento agora. Volte em breve para a revelação.",
+        syrix_eyebrow: "Comunidade", syrix_h2: "Cofundador na Syrix", role_cofounder: "Cofundador",
+        syrix_desc: "Syrix é uma comunidade tech moderna que cofundei com InconnuBoy, criada para reunir desenvolvedores, inovadores e criadores digitais — de desenvolvimento web e mobile a IA, cibersegurança, cloud, DevOps e código aberto. Um ecossistema seletivo de 15 membros, focado em curiosidade, inovação e impacto real em vez de quantidade.",
+        val_curiosity: "Curiosidade", val_innovation: "Inovação", val_excellence: "Excelência", val_professionalism: "Profissionalismo", val_collaboration: "Colaboração", val_impact: "Impacto",
+        connect_eyebrow: "Contato", connect_h2: "Me encontre online", connect_lede: "WhatsApp é a forma mais rápida de falar comigo diretamente.",
+        go_whatsapp: "Chamar diretamente", go_telegram: "Abrir chat", go_youtube: "Ver vídeos", go_github: "Ver repositórios",
+        footer_h2: "Tem um projeto em mente?", footer_p: "Aberto a novas colaborações, trabalho freelance e projetos interessantes — onde quer que você esteja.",
+        footer_btn1: "Fale comigo no WhatsApp", footer_btn2: "Ver todos os projetos"
+      },
+      id: {
+        nav_about: "Tentang", nav_stack: "Stack", nav_projects: "Proyek", nav_syrix: "Syrix", nav_connect: "Kontak",
+        hero_place: "Haiti", hero_kicker: "Tersedia untuk proyek baru",
+        hero_role1: "Pengembang bot WhatsApp", hero_role2: "Full stack", hero_role3: "Co-founder, Syrix",
+        hero_sub: "Saya Fritz, developer otodidak dari Haiti. Saya membuat bot WhatsApp, otomatisasi, dan platform web yang terhubung dengannya.",
+        hero_focus_label: "Saat ini", hero_focus_text: "Sedang mengembangkan fitur untuk Squichy MD, fokus penuh pada perkakas WhatsApp.",
+        hero_pill_status: "tersedia untuk kerja", btn_message: "Hubungi saya", btn_work: "Lihat karya saya",
+        stat_coding: "ngoding sejak", stat_years: "tahun", stat_based: "berbasis di", stat_cofounder: "co-founder di",
+        about_eyebrow: "Tentang", about_h2: "Sosok di balik DsPrimis",
+        about_p1: "Nama saya <b>Fritz</b>, tapi kebanyakan orang mengenal saya sebagai <b>DsPrimis</b>. Saya dari <b>Haiti</b>, lahir <b>5 November 2007</b>, dan mulai serius belajar coding pada <b>2024</b> — tanpa gelar ilmu komputer, tanpa bootcamp. Hanya banyak malam membuka editor, merusak sesuatu, dan mencari tahu kenapa sampai akhirnya masuk akal.",
+        about_p2: "Pekerjaan saya hampir sepenuhnya berpusat di <b>WhatsApp</b> — di situlah semua orang sudah menghabiskan waktu, jadi itu platform di mana alat kecil bisa memberi perbedaan nyata terbesar. Bot yang mencari informasi tanpa keluar dari chat, melindungi grup dari spam dan tautan yang tidak diinginkan, atau menjaga nomor yang di-pairing tetap aman. Perbaikan kecil untuk sesuatu yang sudah dipakai orang setiap hari.",
+        about_p3: "Selain proyek saya sendiri, saya ikut mendirikan <b>Syrix</b>, komunitas selektif yang dibangun untuk menyatukan developer, inovator, dan kreator digital dalam satu wadah.",
+        info_role: "Web Developer", info_k_name: "Nama asli", info_k_born: "Lahir", info_k_location: "Lokasi", info_k_coding: "Ngoding sejak", info_k_company: "Perusahaan", info_v_company: "Co-founder, Syrix",
+        stack_eyebrow: "Tech stack", stack_h2: "Tools yang saya pakai",
+        stack_lede: "JavaScript adalah basis untuk hampir semua yang saya buat. Python muncul untuk scripting dan logika cepat yang tidak butuh server penuh.",
+        projects_eyebrow: "Karya unggulan", projects_h2: "Proyek yang layak dipamerkan", projects_lede: "Satu sudah live dan aktif dikelola — dua lagi sedang dikerjakan.",
+        tag_live: "Live", visit_prefix: "Kunjungi",
+        proj_desc: "Bot WhatsApp otomatis yang dibuat untuk membantu orang menggunakan platform dengan lebih aman dan produktif — mencari informasi tanpa keluar dari chat, melindungi grup dari spam dan tautan berbahaya, serta melindungi nomor pairing milik pengguna. Pairing langsung lewat web, tanpa aplikasi tambahan.",
+        upcoming_badge: "Segera hadir", upcoming_title: "Proyek belum diberi nama",
+        upcoming_desc1: "Detail masih dirahasiakan — tulisan lengkap dan tautannya akan muncul di sini begitu siap dibagikan.",
+        upcoming_desc2: "Ceritanya sama — sedang dikerjakan sekarang. Cek lagi nanti untuk pengungkapannya.",
+        syrix_eyebrow: "Komunitas", syrix_h2: "Co-founder di Syrix", role_cofounder: "Co-founder",
+        syrix_desc: "Syrix adalah komunitas tech modern yang saya dirikan bersama InconnuBoy, dibangun untuk menyatukan developer, inovator, dan kreator digital — mulai dari pengembangan web dan mobile hingga AI, keamanan siber, cloud, DevOps, dan open source. Ekosistem selektif beranggotakan 15 orang yang berfokus pada rasa ingin tahu, inovasi, dan dampak nyata, bukan jumlah anggota.",
+        val_curiosity: "Rasa ingin tahu", val_innovation: "Inovasi", val_excellence: "Keunggulan", val_professionalism: "Profesionalisme", val_collaboration: "Kolaborasi", val_impact: "Dampak",
+        connect_eyebrow: "Hubungi saya", connect_h2: "Temukan saya secara online", connect_lede: "WhatsApp adalah cara tercepat untuk menghubungi saya langsung.",
+        go_whatsapp: "Kirim pesan langsung", go_telegram: "Buka chat", go_youtube: "Tonton video", go_github: "Lihat repository",
+        footer_h2: "Punya proyek di pikiran?", footer_p: "Terbuka untuk kolaborasi baru, kerja lepas, dan proyek menarik — di mana pun kamu berada.",
+        footer_btn1: "Hubungi saya di WhatsApp", footer_btn2: "Lihat semua proyek"
+      }
+    };
+
+    (function () {
+      const btn = document.getElementById('lang-btn');
+      const menu = document.getElementById('lang-menu');
+      if (!btn || !menu) return;
+
+      function applyLang(lang) {
+        const dict = translations[lang];
+        if (!dict) return;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[key] != null) el.innerHTML = dict[key];
+        });
+        document.documentElement.lang = lang;
+        menu.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        try { localStorage.setItem('dp-lang', lang); } catch (_) {}
+      }
+
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = menu.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      menu.querySelectorAll('button').forEach(b => {
+        b.addEventListener('click', () => {
+          applyLang(b.dataset.lang);
+          menu.classList.remove('open');
+          btn.classList.remove('open');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.addEventListener('click', () => {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+      });
+
+      let saved = 'en';
+      try { saved = localStorage.getItem('dp-lang') || 'en'; } catch (_) {}
+      applyLang(saved);
+    })();
+
     // ambient particles
     (function () {
       const container = document.getElementById('bg-particles');
